@@ -86,9 +86,9 @@ script = ExtResource( 7 )
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 script = ExtResource( 8 )
-[connection signal="my_signal" from="Timer" to="Node2D2/Two" method="_on_Timer_my_signal"]
 [connection signal="my_signal" from="Timer" to="Node2D/One" method="_on_Timer_my_signal"]
 [connection signal="my_signal" from="Timer" to="Node2D3/Three" method="_on_Timer_my_signal"]
 [connection signal="my_signal" from="Timer" to="Node2D4/Four" method="_on_Timer_my_signal"]
 [connection signal="my_signal" from="Timer" to="Node2D5/Five" method="_on_Timer_my_signal"]
 [connection signal="my_signal" from="Timer" to="Node2D6/Six" method="_on_Timer_my_signal"]
+[connection signal="my_signal" from="Timer" to="Node2D2/Two" method="_on_Timer_my_signal"]
