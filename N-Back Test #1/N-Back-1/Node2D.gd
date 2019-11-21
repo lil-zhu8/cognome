@@ -6,8 +6,8 @@ extends Node2D
 var sprites
 #var rng = RandomNumberGenerator.new()
 var curr = 0
-var n_times = get_parent().get_parent().n_times
-var rand_array = get_parent().get_parent().rand_array
+var n_times = global.n_times
+var rand_array =global.rand_array
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sprites = get_children()

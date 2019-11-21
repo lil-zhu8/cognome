@@ -16,9 +16,14 @@ _global_script_class_icons={
 [application]
 
 config/name="N-Back Test #1"
-run/main_scene="res://N-Back-1/sprites.tscn"
+run/main_scene="res://N-Back-1/Main Scene.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+global="*res://N-Back-1/global.gd"
+MainScene="*res://N-Back-1/Main Scene.tscn"
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://N-Back-1/default_env.tres"

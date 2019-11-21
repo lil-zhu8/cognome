@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/teapot.png-e9c218f8c12d0692de9afd71e799727f.stex"
+path="res://.import/teapot.png-0da5725cf4d6465dbd24d67c6f1142ba.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://teapot.png"
-dest_files=[ "res://.import/teapot.png-e9c218f8c12d0692de9afd71e799727f.stex" ]
+source_file="res://N-Back-1/teapot.png"
+dest_files=[ "res://.import/teapot.png-0da5725cf4d6465dbd24d67c6f1142ba.stex" ]
 
 [params]
 
