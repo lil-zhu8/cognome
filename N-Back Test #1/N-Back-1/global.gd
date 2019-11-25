@@ -7,6 +7,8 @@ var rand_array = []
 var rng = RandomNumberGenerator.new()
 var N = 2
 var n_times = 5
+var coins = 0
+
 # var len_sprites = len($World.get_node("Sprite Array").sprites) - 1
 var len_sprites = 5
 var positions #fill in later????
