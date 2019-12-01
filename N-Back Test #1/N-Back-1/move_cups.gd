@@ -37,7 +37,6 @@ func _if_timeout():
 		n_backs[n].show()
 		
 		for i in range(len(sprites)):
-			print(i)
 			sprites[i].visible = true
 	else:
 		#change scene
@@ -56,7 +55,8 @@ func _if_timeout():
 
 func _on_Button1_pressed():
 	print("press 1")
-	if (5-n) != 0:
+	if (rand_array[5-n]) != 0:
+		print(rand_array[5-n])
 		print("incorrect")
 	else:
 		global.coins += 100;
@@ -65,7 +65,8 @@ func _on_Button1_pressed():
 
 func _on_Button2_pressed():
 	print("press 2")
-	if (5-n) != 1:
+	if (rand_array[5-n]) != 1:
+		print(rand_array[5-n])
 		print("incorrect")
 	else:
 		global.coins += 100;
@@ -74,7 +75,8 @@ func _on_Button2_pressed():
 
 func _on_Button3_pressed():
 	print("press 3")
-	if (5-n) != 2:
+	if (rand_array[5-n]) != 2:
+		print(rand_array[5-n])
 		print("incorrect")
 	else:
 		global.coins += 100;
@@ -82,7 +84,8 @@ func _on_Button3_pressed():
 
 func _on_Button4_pressed():
 	print("press 4")
-	if (5-n) != 3:
+	if (rand_array[5-n]) != 3:
+		print(rand_array[5-n])
 		print("incorrect")
 	else:
 		global.coins += 100;
@@ -90,7 +93,8 @@ func _on_Button4_pressed():
 
 func _on_Button5_pressed():
 	print("press 5")
-	if (5-n) != 4:
+	if (rand_array[5-n]) != 4:
+		print(rand_array[5-n])
 		print("incorrect")
 	else:
 		global.coins += 100;
@@ -98,7 +102,8 @@ func _on_Button5_pressed():
 
 func _on_Button6_pressed():
 	print("press 6")
-	if (5-n) != 5:
+	if (rand_array[5-n]) != 5:
+		print(rand_array[5-n])
 		print("incorrect")
 	else:
 		global.coins += 100;
