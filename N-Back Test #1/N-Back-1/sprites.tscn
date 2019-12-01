@@ -22,7 +22,6 @@
 [ext_resource path="res://6-back.png" type="Texture" id=20]
 
 [node name="World" type="Control"]
-editor/display_folded = true
 margin_right = 1017.0
 margin_bottom = 605.0
 
@@ -181,7 +180,6 @@ texture_normal = ExtResource( 13 )
 texture_pressed = ExtResource( 14 )
 
 [node name="n-backs" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="1-back" type="Sprite" parent="n-backs"]
 visible = false
