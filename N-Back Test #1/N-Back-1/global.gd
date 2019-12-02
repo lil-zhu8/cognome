@@ -1,25 +1,24 @@
 extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var rand_array = []
+# Global variables to keep track of across the entire game
+
+# Variable declarations
+var rand_array = [] # array of positions to display
 var rng = RandomNumberGenerator.new()
-var n_times = 5
-var N = rng.randi_range(1, n_times)
-var coins = 0
+var n_times = 5 # number of times a cup appears
+var len_sprites = 6 # length of sprite array
+var N = rng.randi_range(1, n_times - 1) # how many N back
+var coins = 0 # coins earned per turn
+var total_coins = 0 # total coins player has earned
 
 # var len_sprites = len($World.get_node("Sprite Array").sprites) - 1
-var len_sprites = 5
+
 var positions #fill in later????
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
 	for i in range(n_times):
-		#r = rng.randi_range(0, len(sprites) - 1)
-		rand_array.append(rng.randi_range(0, len_sprites))
-		
-	#pass # Replace with function body.
+		rand_array.append(rng.randi_range(0, len_sprites - 1)) # randomly generate positions
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

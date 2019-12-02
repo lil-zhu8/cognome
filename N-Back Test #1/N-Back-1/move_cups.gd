@@ -1,32 +1,32 @@
 extends Node2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var sprites
-#var rng = RandomNumberGenerator.new()
-var curr = 0
-var n_times = global.n_times
+var sprites # array of cups
+var curr = 0 # current round
+var n_times = global.n_times 
 var rand_array = global.rand_array
 var n = global.N
-var correct = rand_array[n_times-n-1]
+var correct = rand_array[n_times-n-1] # the correct cup for this game
+var cups
 
-# Called when the node enters the scene tree for the first time.
+# Set up cups array and timer
 func _ready():
 	sprites = get_children()
 	for i in range(len(sprites)):
 		sprites[i].hide()
-	#print(sprites)
-	#self.hide()
+		for node in sprites[i].get_children():
+			if node.get_class() == "Button":
+				node.add_to_group("cups",true)
+				
 	get_parent().get_node("TeaTimer").connect("timeout", self, "_if_timeout")
-	#get_parent().get_node("TeaTimer").nsprites = len(sprites)
 	
-	
-	#var sprites = get_children() # Replace with function body.
+	cups = get_tree().get_nodes_in_group("cups")
+	#for button in cups:
+		#button.connect("pressed",self, "_on_any_button",[button])
 
-	
+# Game logic: show random cups until rounds are complete
+# Then show all cups for user to choose
 func _if_timeout():
-	if curr == n_times:
+	if curr == n_times: # all rounds finished
 		get_parent().get_node("TeaTimer").stop()
 		var n_backs = get_parent().get_node("n-backs").get_children()
 		
@@ -34,79 +34,43 @@ func _if_timeout():
 		
 		for i in range(len(sprites)):
 			sprites[i].visible = true
-	else:
-		#change scene
-#self.hide()
+	else: # keep showing cups for each round
 		for i in range(len(sprites)):
 			sprites[i].hide()	
 		yield(self.get_tree().create_timer(.25,0), "timeout")
-		#print(rand)
-		#print(sprites[rand])
+		
 		sprites[rand_array[curr]].show()
 		print(sprites[rand_array[curr]].get_global_position()) 
-		if curr == n_times:
-			get_parent().get_node("TeaTimer").stop()
-			#change scene
-		curr += 1
+		
+		curr += 1 # next round
 
+# Bad style lol
 func _on_Button1_pressed():
-	print("press 0")
-	if correct != 0:
-		print(correct)
-		print("incorrect")
-		global.coins = 0;
-	else:
-		global.coins = 100;
-	get_tree().change_scene("res://N-Back-1/reward.tscn")
-
+	_on_any_button(0)
 
 func _on_Button2_pressed():
-	print("press 1")
-	if correct != 1:
-		print(correct)
-		print("incorrect")
-		global.coins = 0;
-	else:
-		global.coins = 100;
-	get_tree().change_scene("res://N-Back-1/reward.tscn")
-
+	_on_any_button(1)
 
 func _on_Button3_pressed():
-	print("press 2")
-	if correct != 2:
-		print(correct)
-		print("incorrect")
-		global.coins = 0;
-	else:
-		global.coins = 100;
-	get_tree().change_scene("res://N-Back-1/reward.tscn")
+	_on_any_button(2)
 
 func _on_Button4_pressed():
-	print("press 3")
-	if correct != 3:
-		print(correct)
-		print("incorrect")
-		global.coins = 0;
-	else:
-		global.coins = 100;
-	get_tree().change_scene("res://N-Back-1/reward.tscn")
+	_on_any_button(3)
 
 func _on_Button5_pressed():
-	print("press 4")
-	if correct != 4:
-		print(correct)
-		print("incorrect")
-		global.coins = 0;
-	else:
-		global.coins = 100;
-	get_tree().change_scene("res://N-Back-1/reward.tscn")
+	_on_any_button(4)
 
 func _on_Button6_pressed():
-	print("press 5")
-	if correct != 5:
+	_on_any_button(5)
+	
+func _on_any_button(button):
+	var number = button
+	print("press " + str(number))
+	if correct != number:
 		print(correct)
 		print("incorrect")
-		global.coins = 0;
+		global.coins = 0
 	else:
-		global.coins = 100;
+		global.coins = 100
+	global.total_coins += global.coins
 	get_tree().change_scene("res://N-Back-1/reward.tscn")

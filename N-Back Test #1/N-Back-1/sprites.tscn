@@ -52,7 +52,9 @@ script = ExtResource( 6 )
 
 [node name="Position2D" type="Position2D" parent="teacups/Sprite"]
 
-[node name="Button1" type="Button" parent="teacups/Sprite"]
+[node name="Button1" type="Button" parent="teacups/Sprite" groups=[
+"cups",
+]]
 margin_left = -155.506
 margin_top = -158.918
 margin_right = 182.494
@@ -68,7 +70,9 @@ script = ExtResource( 6 )
 [node name="Position2D2" type="Position2D" parent="teacups/Sprite2"]
 position = Vector2( -664.856, 418.499 )
 
-[node name="Button2" type="Button" parent="teacups/Sprite2"]
+[node name="Button2" type="Button" parent="teacups/Sprite2" groups=[
+"cups",
+]]
 margin_left = -175.0
 margin_top = -140.0
 margin_right = 196.0
@@ -76,6 +80,7 @@ margin_bottom = 137.0
 flat = true
 
 [node name="Sprite3" type="Sprite" parent="teacups"]
+editor/display_folded = true
 position = Vector2( 600, 310 )
 scale = Vector2( 0.12963, 0.12963 )
 texture = ExtResource( 5 )
@@ -84,7 +89,9 @@ script = ExtResource( 6 )
 [node name="Position2D3" type="Position2D" parent="teacups/Sprite3"]
 position = Vector2( -1590.57, 418.499 )
 
-[node name="Button3" type="Button" parent="teacups/Sprite3"]
+[node name="Button3" type="Button" parent="teacups/Sprite3" groups=[
+"cups",
+]]
 margin_left = -213.247
 margin_top = -128.082
 margin_right = 214.753
@@ -92,6 +99,7 @@ margin_bottom = 122.918
 flat = true
 
 [node name="Sprite4" type="Sprite" parent="teacups"]
+editor/display_folded = true
 position = Vector2( 680, 360 )
 scale = Vector2( 0.12963, 0.12963 )
 texture = ExtResource( 5 )
@@ -100,7 +108,9 @@ script = ExtResource( 6 )
 [node name="Position2D4" type="Position2D" parent="teacups/Sprite4"]
 position = Vector2( -2207.71, 32.7847 )
 
-[node name="Button4" type="Button" parent="teacups/Sprite4"]
+[node name="Button4" type="Button" parent="teacups/Sprite4" groups=[
+"cups",
+]]
 margin_left = -201.0
 margin_top = -142.0
 margin_right = 218.0
@@ -108,6 +118,7 @@ margin_bottom = 127.0
 flat = true
 
 [node name="Sprite5" type="Sprite" parent="teacups"]
+editor/display_folded = true
 position = Vector2( 610, 420 )
 scale = Vector2( 0.12963, 0.12963 )
 texture = ExtResource( 5 )
@@ -116,7 +127,9 @@ script = ExtResource( 6 )
 [node name="Position2D5" type="Position2D" parent="teacups/Sprite5"]
 position = Vector2( -1667.71, -430.071 )
 
-[node name="Button5" type="Button" parent="teacups/Sprite5"]
+[node name="Button5" type="Button" parent="teacups/Sprite5" groups=[
+"cups",
+]]
 margin_left = -207.342
 margin_top = -130.67
 margin_right = 216.658
@@ -124,6 +137,7 @@ margin_bottom = 129.33
 flat = true
 
 [node name="Sprite6" type="Sprite" parent="teacups"]
+editor/display_folded = true
 position = Vector2( 480, 420 )
 scale = Vector2( 0.12963, 0.12963 )
 texture = ExtResource( 5 )
@@ -132,7 +146,9 @@ script = ExtResource( 6 )
 [node name="Position2D6" type="Position2D" parent="teacups/Sprite6"]
 position = Vector2( -664.856, -430.071 )
 
-[node name="Button6" type="Button" parent="teacups/Sprite6"]
+[node name="Button6" type="Button" parent="teacups/Sprite6" groups=[
+"cups",
+]]
 margin_left = -195.0
 margin_top = -138.412
 margin_right = 222.0
@@ -144,11 +160,10 @@ autostart = true
 script = ExtResource( 7 )
 
 [node name="Help" type="TextureButton" parent="."]
-editor/display_folded = true
-margin_left = 820.0
-margin_top = 470.0
-margin_right = 984.0
-margin_bottom = 579.0
+margin_left = 832.853
+margin_top = 465.716
+margin_right = 996.853
+margin_bottom = 574.716
 texture_normal = ExtResource( 8 )
 texture_pressed = ExtResource( 9 )
 
@@ -180,6 +195,7 @@ texture_normal = ExtResource( 13 )
 texture_pressed = ExtResource( 14 )
 
 [node name="n-backs" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="1-back" type="Sprite" parent="n-backs"]
 visible = false
