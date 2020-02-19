@@ -119,5 +119,6 @@ quality/driver/driver_name="GLES2"
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/2d/use_pixel_snap=true
+vram_compression/import_etc=true
 quality/shadows/filter_mode.mobile=1
 quality/dynamic_fonts/use_oversampling=false
