@@ -1,0 +1,3 @@
+[submodule "puzzles-for-pod/harmonic-godot"]
+	path = puzzles-for-pod/harmonic-godot
+	url = git@bitbucket.org:DDRKirbyISQ/harmonic-godot.git

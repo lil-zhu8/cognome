@@ -1,0 +1,12 @@
+# Godot-specific ignores
+.import/
+
+# Mono-specific ignores
+.mono/
+data_*/
+
+# Standard stuff
+.DS_Store
+
+# Exports
+/export/
