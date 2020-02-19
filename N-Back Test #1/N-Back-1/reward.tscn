@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://N-Back-1/reward.gd" type="Script" id=1]
+[ext_resource path="res://end_minigame.png" type="Texture" id=2]
+[ext_resource path="res://replay.png" type="Texture" id=3]
+[ext_resource path="res://replay_pressed.png" type="Texture" id=4]
+[ext_resource path="res://next_button.png" type="Texture" id=5]
+[ext_resource path="res://next_button_pressed.png" type="Texture" id=6]
+[ext_resource path="res://coin.png" type="Texture" id=7]
+[ext_resource path="res://N-Back-1/Container.gd" type="Script" id=8]
+[ext_resource path="res://N-Back-1/Roboto-Regular.ttf" type="DynamicFontData" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 250
+outline_size = 3
+outline_color = Color( 0.729412, 0.223529, 0.756863, 1 )
+font_data = ExtResource( 9 )
+
+[node name="reward" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="end" type="Sprite" parent="."]
+position = Vector2( 511.371, 300.132 )
+scale = Vector2( 0.255685, 0.25011 )
+texture = ExtResource( 2 )
+
+[node name="replay" type="TextureButton" parent="end"]
+margin_left = -1321.43
+margin_top = -327.0
+margin_right = -293.431
+margin_bottom = 701.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="store" type="TextureButton" parent="end"]
+margin_left = 349.805
+margin_top = -314.466
+margin_right = 1424.81
+margin_bottom = 760.534
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 6 )
+expand = true
+
+[node name="coin" type="Sprite" parent="end"]
+position = Vector2( 1190.34, -767.842 )
+scale = Vector2( 0.378976, 0.376658 )
+texture = ExtResource( 7 )
+
+[node name="Container" type="Container" parent="end"]
+anchor_right = 0.06
+margin_left = -1475.0
+margin_top = -918.0
+margin_right = 685.0
+margin_bottom = -624.0
+script = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="end/Container"]
+margin_right = 2400.0
+margin_bottom = 294.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.921569, 0.596078, 0.941176, 1 )
+align = 2
+[connection signal="pressed" from="end/replay" to="." method="_on_replay_pressed"]
+[connection signal="draw" from="end/Container/Label" to="." method="_on_Label_draw"]

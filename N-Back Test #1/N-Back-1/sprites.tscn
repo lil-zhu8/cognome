@@ -1,22 +1,33 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://room.png" type="Texture" id=1]
 [ext_resource path="res://table.png" type="Texture" id=2]
 [ext_resource path="res://teapot.png" type="Texture" id=3]
-[ext_resource path="res://N-Back-1/Node2D.gd" type="Script" id=4]
+[ext_resource path="res://N-Back-1/move_cups.gd" type="Script" id=4]
 [ext_resource path="res://teacup.png" type="Texture" id=5]
 [ext_resource path="res://N-Back-1/Teacup.gd" type="Script" id=6]
 [ext_resource path="res://N-Back-1/TeaTimer.gd" type="Script" id=7]
-[ext_resource path="res://N-Back-1/roboto.tres" type="DynamicFont" id=8]
-[ext_resource path="res://button_help.png" type="Texture" id=9]
+[ext_resource path="res://button_help.png" type="Texture" id=8]
+[ext_resource path="res://button_help_press.png" type="Texture" id=9]
+[ext_resource path="res://N-Back-1/roboto.tres" type="DynamicFont" id=10]
+[ext_resource path="res://instruct.png" type="Texture" id=11]
+[ext_resource path="res://N-Back-1/instructions.gd" type="Script" id=12]
+[ext_resource path="res://ok.png" type="Texture" id=13]
+[ext_resource path="res://ok_down.png" type="Texture" id=14]
+[ext_resource path="res://1-back.png" type="Texture" id=15]
+[ext_resource path="res://2-back.png" type="Texture" id=16]
+[ext_resource path="res://3-back.png" type="Texture" id=17]
+[ext_resource path="res://4-back.png" type="Texture" id=18]
+[ext_resource path="res://5-back.png" type="Texture" id=19]
+[ext_resource path="res://6-back.png" type="Texture" id=20]
 
 [node name="World" type="Control"]
 margin_right = 1017.0
 margin_bottom = 605.0
 
 [node name="room" type="Sprite" parent="."]
-position = Vector2( 508.74, 300 )
-scale = Vector2( 0.25413, 0.25 )
+position = Vector2( 511.655, 300 )
+scale = Vector2( 0.255587, 0.25 )
 texture = ExtResource( 1 )
 
 [node name="table" type="Sprite" parent="."]
@@ -29,84 +40,203 @@ position = Vector2( 430, 330 )
 scale = Vector2( 0.156132, 0.151111 )
 texture = ExtResource( 3 )
 
-[node name="Sprite Array" type="Node2D" parent="."]
+[node name="teacups" type="Node2D" parent="."]
 position = Vector2( -110, -30 )
 script = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="Sprite Array"]
+[node name="Sprite" type="Sprite" parent="teacups"]
 position = Vector2( 393.815, 364.25 )
 scale = Vector2( 0.12963, 0.12963 )
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
-[node name="Position2D" type="Position2D" parent="Sprite Array/Sprite"]
+[node name="Position2D" type="Position2D" parent="teacups/Sprite"]
 
-[node name="Sprite2" type="Sprite" parent="Sprite Array"]
+[node name="Button1" type="Button" parent="teacups/Sprite" groups=[
+"cups",
+]]
+margin_left = -155.506
+margin_top = -158.918
+margin_right = 182.494
+margin_bottom = 132.082
+flat = true
+
+[node name="Sprite2" type="Sprite" parent="teacups"]
 position = Vector2( 480, 310 )
 scale = Vector2( 0.12963, 0.12963 )
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
-[node name="Position2D2" type="Position2D" parent="Sprite Array/Sprite2"]
+[node name="Position2D2" type="Position2D" parent="teacups/Sprite2"]
 position = Vector2( -664.856, 418.499 )
 
-[node name="Sprite3" type="Sprite" parent="Sprite Array"]
+[node name="Button2" type="Button" parent="teacups/Sprite2" groups=[
+"cups",
+]]
+margin_left = -175.0
+margin_top = -140.0
+margin_right = 196.0
+margin_bottom = 137.0
+flat = true
+
+[node name="Sprite3" type="Sprite" parent="teacups"]
+editor/display_folded = true
 position = Vector2( 600, 310 )
 scale = Vector2( 0.12963, 0.12963 )
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
-[node name="Position2D3" type="Position2D" parent="Sprite Array/Sprite3"]
+[node name="Position2D3" type="Position2D" parent="teacups/Sprite3"]
 position = Vector2( -1590.57, 418.499 )
 
-[node name="Sprite4" type="Sprite" parent="Sprite Array"]
+[node name="Button3" type="Button" parent="teacups/Sprite3" groups=[
+"cups",
+]]
+margin_left = -213.247
+margin_top = -128.082
+margin_right = 214.753
+margin_bottom = 122.918
+flat = true
+
+[node name="Sprite4" type="Sprite" parent="teacups"]
+editor/display_folded = true
 position = Vector2( 680, 360 )
 scale = Vector2( 0.12963, 0.12963 )
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
-[node name="Position2D4" type="Position2D" parent="Sprite Array/Sprite4"]
+[node name="Position2D4" type="Position2D" parent="teacups/Sprite4"]
 position = Vector2( -2207.71, 32.7847 )
 
-[node name="Sprite5" type="Sprite" parent="Sprite Array"]
+[node name="Button4" type="Button" parent="teacups/Sprite4" groups=[
+"cups",
+]]
+margin_left = -201.0
+margin_top = -142.0
+margin_right = 218.0
+margin_bottom = 127.0
+flat = true
+
+[node name="Sprite5" type="Sprite" parent="teacups"]
+editor/display_folded = true
 position = Vector2( 610, 420 )
 scale = Vector2( 0.12963, 0.12963 )
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
-[node name="Position2D5" type="Position2D" parent="Sprite Array/Sprite5"]
+[node name="Position2D5" type="Position2D" parent="teacups/Sprite5"]
 position = Vector2( -1667.71, -430.071 )
 
-[node name="Sprite6" type="Sprite" parent="Sprite Array"]
+[node name="Button5" type="Button" parent="teacups/Sprite5" groups=[
+"cups",
+]]
+margin_left = -207.342
+margin_top = -130.67
+margin_right = 216.658
+margin_bottom = 129.33
+flat = true
+
+[node name="Sprite6" type="Sprite" parent="teacups"]
+editor/display_folded = true
 position = Vector2( 480, 420 )
 scale = Vector2( 0.12963, 0.12963 )
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
-[node name="Position2D6" type="Position2D" parent="Sprite Array/Sprite6"]
+[node name="Position2D6" type="Position2D" parent="teacups/Sprite6"]
 position = Vector2( -664.856, -430.071 )
+
+[node name="Button6" type="Button" parent="teacups/Sprite6" groups=[
+"cups",
+]]
+margin_left = -195.0
+margin_top = -138.412
+margin_right = 222.0
+margin_bottom = 123.588
+flat = true
 
 [node name="TeaTimer" type="Timer" parent="."]
 autostart = true
 script = ExtResource( 7 )
 
-[node name="Help" type="Button" parent="."]
-margin_left = 820.0
-margin_top = 470.0
-margin_right = 996.0
-margin_bottom = 585.0
-custom_fonts/font = ExtResource( 8 )
-custom_colors/font_color_disabled = Color( 0.980392, 0.627451, 1, 1 )
-custom_colors/font_color = Color( 0.980392, 0.627451, 1, 1 )
-icon = ExtResource( 9 )
-flat = true
+[node name="Help" type="TextureButton" parent="."]
+margin_left = 832.853
+margin_top = 465.716
+margin_right = 996.853
+margin_bottom = 574.716
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Help"]
-margin_left = 30.0
-margin_top = 20.0
-margin_right = 158.0
-margin_bottom = 100.0
-custom_fonts/normal_font = ExtResource( 8 )
-custom_colors/default_color = Color( 0.921569, 0.596078, 0.941176, 1 )
+[node name="RichTextLabel" type="Label" parent="Help"]
+margin_left = 2.15662
+margin_top = 15.4791
+margin_right = 162.157
+margin_bottom = 95.4791
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.980392, 0.627451, 1, 1 )
 text = "Help"
-scroll_active = false
+align = 1
+valign = 1
+
+[node name="instructions" type="Sprite" parent="."]
+editor/display_folded = true
+visible = false
+position = Vector2( 497.071, 126.221 )
+scale = Vector2( 0.175768, 0.175768 )
+texture = ExtResource( 11 )
+script = ExtResource( 12 )
+
+[node name="OK" type="TextureButton" parent="instructions"]
+margin_left = 2270.91
+margin_top = 104.976
+margin_right = 8270.91
+margin_bottom = 1304.98
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 14 )
+
+[node name="n-backs" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="1-back" type="Sprite" parent="n-backs"]
+visible = false
+position = Vector2( 506.628, 125.876 )
+scale = Vector2( 0.170248, 0.170248 )
+texture = ExtResource( 15 )
+
+[node name="2-back" type="Sprite" parent="n-backs"]
+visible = false
+position = Vector2( 507.673, 127.241 )
+scale = Vector2( 0.170104, 0.170105 )
+texture = ExtResource( 16 )
+
+[node name="3-back" type="Sprite" parent="n-backs"]
+visible = false
+position = Vector2( 506.007, 128.646 )
+scale = Vector2( 0.17, 0.17 )
+texture = ExtResource( 17 )
+
+[node name="4-back" type="Sprite" parent="n-backs"]
+visible = false
+position = Vector2( 507.364, 127.064 )
+scale = Vector2( 0.17, 0.17 )
+texture = ExtResource( 18 )
+
+[node name="5-back" type="Sprite" parent="n-backs"]
+visible = false
+position = Vector2( 506.468, 126.701 )
+scale = Vector2( 0.17, 0.17 )
+texture = ExtResource( 19 )
+
+[node name="6-back" type="Sprite" parent="n-backs"]
+visible = false
+position = Vector2( 509.69, 127.907 )
+scale = Vector2( 0.17, 0.17 )
+texture = ExtResource( 20 )
+[connection signal="pressed" from="teacups/Sprite/Button1" to="teacups" method="_on_Button1_pressed"]
+[connection signal="pressed" from="teacups/Sprite2/Button2" to="teacups" method="_on_Button2_pressed"]
+[connection signal="pressed" from="teacups/Sprite3/Button3" to="teacups" method="_on_Button3_pressed"]
+[connection signal="pressed" from="teacups/Sprite4/Button4" to="teacups" method="_on_Button4_pressed"]
+[connection signal="pressed" from="teacups/Sprite5/Button5" to="teacups" method="_on_Button5_pressed"]
+[connection signal="pressed" from="teacups/Sprite6/Button6" to="teacups" method="_on_Button6_pressed"]
+[connection signal="pressed" from="Help" to="instructions" method="_on_Help_pressed"]
+[connection signal="pressed" from="instructions/OK" to="instructions" method="_on_OK_pressed"]

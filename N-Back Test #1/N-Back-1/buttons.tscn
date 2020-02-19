@@ -2,7 +2,7 @@
 
 [ext_resource path="res://room.png" type="Texture" id=1]
 [ext_resource path="res://table.png" type="Texture" id=2]
-[ext_resource path="res://N-Back-1/Node2D.gd" type="Script" id=3]
+[ext_resource path="res://N-Back-1/move_cups.gd" type="Script" id=3]
 [ext_resource path="res://teacup.png" type="Texture" id=4]
 [ext_resource path="res://N-Back-1/Teacup.gd" type="Script" id=5]
 [ext_resource path="res://N-Back-1/TeaTimer.gd" type="Script" id=6]
