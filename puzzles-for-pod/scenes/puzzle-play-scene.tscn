@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://sprites/puzzle-images/fall_img.jpg" type="Texture" id=1]
+[ext_resource path="res://scenes/puzzle-1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/PuzzlePlayScene.gd" type="Script" id=3]
+
+[node name="PuzzleScene" type="Node2D"]
+script = ExtResource( 3 )
+_puzzleImage = ExtResource( 1 )
+_puzzleScene = ExtResource( 2 )
+
+[node name="PuzzleParent" type="Node2D" parent="."]
+position = Vector2( 250.691, 189.044 )

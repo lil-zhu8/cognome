@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://harmonic-godot/node2d-shaker/Node2DShaker.gd"
 }, {
+"base": "Node2D",
+"class": "Puzzle",
+"language": "GDScript",
+"path": "res://scripts/Puzzle.gd"
+}, {
+"base": "Area2D",
+"class": "PuzzlePiece",
+"language": "GDScript",
+"path": "res://scripts/PuzzlePiece.gd"
+}, {
 "base": "Reference",
 "class": "SiteLock",
 "language": "GDScript",
@@ -26,6 +36,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Node2DShaker": "",
+"Puzzle": "",
+"PuzzlePiece": "",
 "SiteLock": "",
 "SiteLockUrls": ""
 }
@@ -33,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Puzzles for POD"
-run/main_scene="res://scenes/intro-scene.tscn"
+run/main_scene="res://scenes/puzzle-play-scene.tscn"
 boot_splash/image="res://harmonic-godot/sprites/white-pixel.png"
 boot_splash/bg_color=Color( 1, 1, 1, 1 )
 config/icon="res://publish/icon_1024.png"
@@ -43,6 +55,10 @@ config/icon="res://publish/icon_1024.png"
 ScreenTransitioner="*res://harmonic-godot/singletons/ScreenTransitioner.tscn"
 AudioPlayer="*res://harmonic-godot/singletons/AudioPlayer.gd"
 
+[debug]
+
+gdscript/completion/autocomplete_setters_and_getters=true
+
 [display]
 
 window/size/height=768
@@ -51,7 +67,7 @@ window/size/test_width=1024
 window/size/test_height=768
 window/handheld/orientation="sensor_landscape"
 window/stretch/mode="viewport"
-window/stretch/aspect="keep"
+window/stretch/aspect="expand"
 
 [importer_defaults]
 
@@ -112,6 +128,11 @@ ui_end={
 "deadzone": 0.5,
 "events": [  ]
 }
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+pointing/emulate_mouse_from_touch=false
 
 [rendering]
 

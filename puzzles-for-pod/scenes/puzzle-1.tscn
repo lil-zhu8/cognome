@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/puzzle-piece.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Puzzle.gd" type="Script" id=4]
+
+[node name="Puzzle1" type="Node2D"]
+script = ExtResource( 4 )
+_columns = 7
+_maskPath = "res://sprites/puzzle-masks"
+_puzzlePieceScene = ExtResource( 1 )
