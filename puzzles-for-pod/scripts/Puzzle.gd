@@ -12,11 +12,11 @@ func LoadMasks() -> Array:
 	var filenames:Array = []
 	var dir = Directory.new()
 	dir.open(_maskPath)
-	dir.list_dir_begin()
+	dir.list_dir_begin(true, true)
 	var filename = dir.get_next()
 	while filename != "":
-		if filename.ends_with('png'):
-			filenames.append(filename)
+		if filename.ends_with('.png.import'):
+			filenames.append(filename.replace(".import", ""))
 		filename = dir.get_next()
 
 	var result = []
