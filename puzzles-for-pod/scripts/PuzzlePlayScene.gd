@@ -26,7 +26,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		HandleDrag(moveEvent.position)
 
 func HandleClick(position:Vector2) -> void:
-	print(_snapThreshold)
 	var intersections:Array = get_world_2d().direct_space_state.intersect_point(
 		position,
 		_puzzle.get_child_count(),

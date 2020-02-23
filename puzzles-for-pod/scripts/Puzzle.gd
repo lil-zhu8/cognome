@@ -9,16 +9,20 @@ export var _puzzlePieceScene:PackedScene
 var Pieces:Array = []
 
 func LoadMasks() -> Array:
-	var result = []
-
+	var filenames:Array = []
 	var dir = Directory.new()
 	dir.open(_maskPath)
 	dir.list_dir_begin()
 	var filename = dir.get_next()
 	while filename != "":
 		if filename.ends_with('png'):
-			result.append(load(_maskPath + "/" + filename));
+			filenames.append(filename)
 		filename = dir.get_next()
+
+	var result = []
+	filenames.sort()
+	for filename in filenames:
+		result.append(load(_maskPath + "/" + filename));
 	return result
 
 func Init(image:Texture) -> void:
