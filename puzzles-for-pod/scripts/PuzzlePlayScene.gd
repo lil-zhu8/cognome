@@ -83,11 +83,25 @@ func SaveData(data:Dictionary) -> void:
 		var piece:PuzzlePiece = _puzzle.Pieces[i];
 		result.pieces[str(i)] = piece.Save()
 
-func HandleDrag(position: Vector2) -> void:
+func HandleDrag(position:Vector2) -> void:
 	if _activePiece != null:
 		_activePiece.set_global_position(position + _dragOffset)
 
-func PlaceUnused(piece: PuzzlePiece) -> void:
+func PlaceUnused(piece:PuzzlePiece) -> void:
 	var unusedPosition:Control = get_node(_unusedPositionPath)
 	var rect:Rect2 = unusedPosition.get_global_rect()
 	piece.PlaceRandomly(rect)
+
+func RevealPieces(count:int) -> void:
+	var i:int = _puzzle.Pieces.size() - 1
+	while i >= 0:
+		var piece:PuzzlePiece = _puzzle.Pieces[i]
+		if !piece.IsAvailable():
+			piece.MakeAvailable()
+			count -= 1
+			if count <= 0:
+				return
+		i -= 1
+
+func OnMinigameButtonPressed() -> void:
+	RevealPieces(3)
