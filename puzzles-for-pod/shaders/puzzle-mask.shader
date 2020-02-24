@@ -20,7 +20,7 @@ void fragment() {
 	
 	float lerp = clamp(outline * 0.125, 0.0, 1.0);
 
-	color = mix(color, outlineColor, pow(1.0 - lerp, 0.5));
+	color = mix(color, outlineColor, pow(1.0 - lerp, 0.2));
 	color.a = maskVal;
 	
 	// Assign the color to the output
