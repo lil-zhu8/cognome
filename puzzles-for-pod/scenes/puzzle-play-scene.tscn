@@ -1,13 +1,165 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/PuzzlePlayScene.gd" type="Script" id=1]
 [ext_resource path="res://sprites/puzzle-images/fall_img.jpg" type="Texture" id=2]
 [ext_resource path="res://scenes/puzzle-1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui-theme.tres" type="Theme" id=4]
+[ext_resource path="res://sprites/puzzle-images/ice_skate.jpg" type="Texture" id=5]
 
-[node name="PuzzleScene" type="Node2D"]
+[node name="PuzzleScene" type="Node"]
 script = ExtResource( 1 )
-_puzzleImage = ExtResource( 2 )
+_puzzleImage = ExtResource( 5 )
 _puzzleScene = ExtResource( 3 )
+_puzzleParentPath = NodePath("CanvasLayer/MarginContainer/Content/PuzzleBackground/MarginContainer/PuzzleParent")
+_puzzlePreviewPath = NodePath("CanvasLayer/MarginContainer/Content/PuzzlePreview")
 
-[node name="PuzzleParent" type="Node2D" parent="."]
-position = Vector2( 250.691, 189.044 )
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -384.0
+margin_right = 512.0
+margin_bottom = 384.0
+custom_constants/margin_right = 25
+custom_constants/margin_top = 25
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="Control" parent="CanvasLayer/MarginContainer"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 999.0
+margin_bottom = 743.0
+
+[node name="HelpButton" type="Button" parent="CanvasLayer/MarginContainer/Content"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -237.0
+margin_top = 241.0
+margin_bottom = 341.0
+theme = ExtResource( 4 )
+text = "Help?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MorePuzzlesButton" type="Button" parent="CanvasLayer/MarginContainer/Content"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 13.0
+margin_top = 241.0
+margin_right = 238.0
+margin_bottom = 341.0
+theme = ExtResource( 4 )
+text = "More Puzzles"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UnusedPiecesBackground" type="Panel" parent="CanvasLayer/MarginContainer/Content"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -487.0
+margin_top = -359.0
+margin_right = -262.0
+margin_bottom = 341.0
+mouse_filter = 2
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/UnusedPiecesBackground"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -105.0
+margin_right = 105.0
+margin_bottom = 45.0
+text = "Unused Pieces"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UnusedPiecesPosition" type="Control" parent="CanvasLayer/MarginContainer/Content/UnusedPiecesBackground"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MinigameButton" type="Button" parent="CanvasLayer/MarginContainer/Content/UnusedPiecesBackground"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -100.0
+theme = ExtResource( 4 )
+text = "More Pieces"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PuzzleBackground" type="Panel" parent="CanvasLayer/MarginContainer/Content"]
+margin_left = 250.0
+margin_right = 975.0
+margin_bottom = 575.0
+mouse_filter = 2
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/Content/PuzzleBackground"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PuzzleParent" type="Control" parent="CanvasLayer/MarginContainer/Content/PuzzleBackground/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 705.0
+margin_bottom = 555.0
+
+[node name="PuzzlePreview" type="TextureRect" parent="CanvasLayer/MarginContainer/Content"]
+margin_left = 750.0
+margin_top = 600.0
+margin_right = 975.0
+margin_bottom = 700.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
