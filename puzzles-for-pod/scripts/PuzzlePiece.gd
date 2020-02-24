@@ -4,14 +4,27 @@ class_name PuzzlePiece
 
 signal GuiInput
 
+var _locked:bool = false
+
+func Snap() -> void:
+	set_position(Vector2.ZERO)
+	_locked = true
+	get_parent().move_child(self, 0)
+
 func Save() -> Dictionary:
 	var result:Dictionary = {}
 	result.position_x = get_position().x
 	result.position_y = get_position().y
+	result.locked = _locked
 	return result
 
 func Load(data:Dictionary) -> void:
+	if !data.has_all(["position_x", "position_y", "locked"]):
+		return
 	set_position(Vector2(data.position_x, data.position_y))
+	_locked = data.locked
+	if _locked:
+		Snap()
 
 func PlaceRandomly(rect:Rect2) -> void:
 	var collision:Control = $Collision
@@ -37,4 +50,7 @@ func Init(image:Texture, mask:Texture, size:Vector2, position:Vector2) -> void:
 	collision.connect("gui_input", self, "OnGuiInput")
 
 func OnGuiInput(event:InputEvent) -> void:
+	if _locked:
+		return
+
 	emit_signal("GuiInput", event)

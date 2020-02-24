@@ -41,7 +41,7 @@ func HandleClick(position:Vector2, piece:PuzzlePiece) -> void:
 
 func HandleRelease() -> void:
 	if _activePiece != null && _activePiece.get_position().length_squared() <= _snapThreshold * _snapThreshold:
-		_activePiece.set_position(Vector2.ZERO)
+		_activePiece.Snap()
 	Save()
 	_activePiece = null
 
