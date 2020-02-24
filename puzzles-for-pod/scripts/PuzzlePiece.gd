@@ -6,6 +6,7 @@ signal GuiInput
 
 var _locked:bool = false
 var _available:bool = false
+const SIZE_FACTOR:float = 1.5
 
 func Snap() -> void:
 	set_position(Vector2.ZERO)
@@ -59,8 +60,9 @@ func Init(image:Texture, mask:Texture, size:Vector2, position:Vector2) -> void:
 	var shaderMaterial:ShaderMaterial = material
 	shaderMaterial.set_shader_param("maskTexture", mask)
 	var collision:Control = $Collision
+	collision.set_position(position - Vector2(size.x * (SIZE_FACTOR - 1) * 0.5, size.y * (SIZE_FACTOR - 1) * 0.5))
+	size *= SIZE_FACTOR
 	collision.set_size(size)
-	collision.set_position(position)
 	collision.connect("gui_input", self, "OnGuiInput")
 	Reset()
 

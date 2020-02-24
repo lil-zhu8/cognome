@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Puzzle.gd"
 }, {
+"base": "Node",
+"class": "PuzzleMasks",
+"language": "GDScript",
+"path": "res://scripts/PuzzleMasks.gd"
+}, {
 "base": "TextureRect",
 "class": "PuzzlePiece",
 "language": "GDScript",
@@ -43,6 +48,7 @@ _global_script_class_icons={
 "GlowingButton": "",
 "Node2DShaker": "",
 "Puzzle": "",
+"PuzzleMasks": "",
 "PuzzlePiece": "",
 "SiteLock": "",
 "SiteLockUrls": ""

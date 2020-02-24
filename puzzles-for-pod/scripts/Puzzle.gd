@@ -3,30 +3,12 @@ extends Control
 class_name Puzzle
 
 export var _columns:int
-export(String, DIR) var _maskPath:String
 export var _puzzlePieceScene:PackedScene
 
 var Pieces:Array = []
 
-func LoadMasks() -> Array:
-	var filenames:Array = []
-	var dir = Directory.new()
-	dir.open(_maskPath)
-	dir.list_dir_begin(true, true)
-	var filename = dir.get_next()
-	while filename != "":
-		if filename.ends_with('.png.import'):
-			filenames.append(filename.replace(".import", ""))
-		filename = dir.get_next()
-
-	var result = []
-	filenames.sort()
-	for filename in filenames:
-		result.append(load(_maskPath + "/" + filename));
-	return result
-
 func Init(image:Texture) -> void:
-	var masks:Array = LoadMasks()
+	var masks:Array = PuzzleMasks.MASKS
 	var rows:int = masks.size() / _columns
 	var pieceSize:Vector2 = Vector2(image.get_size().x / _columns, image.get_size().y / rows)
 
