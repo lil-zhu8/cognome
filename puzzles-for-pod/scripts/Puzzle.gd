@@ -44,6 +44,11 @@ func Init(image:Texture) -> void:
 	for child in get_children():
 		move_child(child, randi() % get_child_count())
 
+func Reset() -> void:
+	for p in Pieces:
+		var piece:PuzzlePiece = p
+		piece.Reset()
+		move_child(p, randi() % get_child_count())
 
 func ConstructPiece(image:Texture, mask:Texture, pieceSize:Vector2, position:Vector2) -> void:
 	var newPiece:PuzzlePiece = _puzzlePieceScene.instance()

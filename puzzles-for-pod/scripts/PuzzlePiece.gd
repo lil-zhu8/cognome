@@ -12,6 +12,9 @@ func Snap() -> void:
 	_locked = true
 	get_parent().move_child(self, 0)
 
+func IsLocked() -> bool:
+	return _locked
+
 func IsAvailable() -> bool:
 	return _available
 
@@ -59,7 +62,11 @@ func Init(image:Texture, mask:Texture, size:Vector2, position:Vector2) -> void:
 	collision.set_size(size)
 	collision.set_position(position)
 	collision.connect("gui_input", self, "OnGuiInput")
+	Reset()
+
+func Reset() -> void:
 	_available = false
+	_locked = false
 	visible = false
 
 func OnGuiInput(event:InputEvent) -> void:

@@ -6,6 +6,7 @@ export var _snapThreshold:int = 25
 export var _puzzleParentPath:NodePath
 export var _puzzlePreviewPath:NodePath
 export var _unusedPositionPath:NodePath
+export var _minigameButtonPath:NodePath
 
 var _activePiece:PuzzlePiece = null
 var _dragOffset:Vector2
@@ -93,9 +94,10 @@ func PlaceUnused(piece:PuzzlePiece) -> void:
 	piece.PlaceRandomly(rect)
 
 func RevealPieces(count:int) -> void:
-	var i:int = _puzzle.Pieces.size() - 1
+	
+	var i:int = _puzzle.get_child_count() - 1
 	while i >= 0:
-		var piece:PuzzlePiece = _puzzle.Pieces[i]
+		var piece:PuzzlePiece = _puzzle.get_child(i)
 		if !piece.IsAvailable():
 			piece.MakeAvailable()
 			count -= 1
@@ -105,3 +107,21 @@ func RevealPieces(count:int) -> void:
 
 func OnMinigameButtonPressed() -> void:
 	RevealPieces(3)
+
+func HasAvailablePiece() -> bool:
+	for p in _puzzle.Pieces:
+		var piece:PuzzlePiece = p
+		if piece.IsAvailable() && !piece.IsLocked():
+			return true
+	return false
+
+func _process(_delta:float) -> void:
+	var button:GlowingButton = get_node(_minigameButtonPath)
+	button.Enabled = !HasAvailablePiece()
+
+func OnMorePuzzlesButtonPressed() -> void:
+	_puzzle.Reset()
+	for p in _puzzle.Pieces:
+		var piece:PuzzlePiece = p
+		PlaceUnused(piece)
+	Save()

@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Button",
+"class": "GlowingButton",
+"language": "GDScript",
+"path": "res://scripts/GlowingButton.gd"
+}, {
 "base": "Reference",
 "class": "Node2DShaker",
 "language": "GDScript",
@@ -35,6 +40,7 @@ _global_script_classes=[ {
 "path": "res://scripts/SiteLockUrls.gd"
 } ]
 _global_script_class_icons={
+"GlowingButton": "",
 "Node2DShaker": "",
 "Puzzle": "",
 "PuzzlePiece": "",
