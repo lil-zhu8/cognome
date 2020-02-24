@@ -5,6 +5,7 @@ export var _puzzleScene:PackedScene
 export var _snapThreshold:int = 25
 export var _puzzleParentPath:NodePath
 export var _puzzlePreviewPath:NodePath
+export var _unusedPositionPath:NodePath
 
 var _activePiece:PuzzlePiece = null
 var _dragOffset:Vector2
@@ -17,9 +18,9 @@ func _ready():
 	for piece in _puzzle.Pieces:
 		var puzzlePiece:PuzzlePiece = piece as PuzzlePiece
 		puzzlePiece.connect("GuiInput", self, "OnGuiInput", [puzzlePiece])
+		PlaceUnused(puzzlePiece)
 	var puzzlePreview:TextureRect = get_node(_puzzlePreviewPath)
 	puzzlePreview.texture = _puzzleImage
-
 
 func OnGuiInput(event:InputEvent, piece:PuzzlePiece) -> void:
 	var clickEvent:InputEventMouseButton = event as InputEventMouseButton
@@ -45,5 +46,8 @@ func HandleRelease() -> void:
 func HandleDrag(position: Vector2) -> void:
 	if _activePiece != null:
 		_activePiece.set_global_position(position + _dragOffset)
-		print(_activePiece.get_global_position())
 
+func PlaceUnused(piece: PuzzlePiece) -> void:
+	var unusedPosition:Control = get_node(_unusedPositionPath)
+	var rect:Rect2 = unusedPosition.get_global_rect()
+	piece.PlaceRandomly(rect)

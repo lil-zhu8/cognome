@@ -12,6 +12,7 @@ _puzzleImage = ExtResource( 5 )
 _puzzleScene = ExtResource( 3 )
 _puzzleParentPath = NodePath("CanvasLayer/MarginContainer/Content/PuzzleBackground/MarginContainer/PuzzleParent")
 _puzzlePreviewPath = NodePath("CanvasLayer/MarginContainer/Content/PuzzlePreview")
+_unusedPositionPath = NodePath("CanvasLayer/MarginContainer/Content/UnusedPiecesBackground/UnusedPiecesPosition")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -106,7 +107,10 @@ __meta__ = {
 [node name="UnusedPiecesPosition" type="Control" parent="CanvasLayer/MarginContainer/Content/UnusedPiecesBackground"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 6.0
+margin_left = 25.0
+margin_top = 93.0
+margin_right = -25.0
+margin_bottom = -125.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -139,19 +143,19 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
+custom_constants/margin_right = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PuzzleParent" type="Control" parent="CanvasLayer/MarginContainer/Content/PuzzleBackground/MarginContainer"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 705.0
-margin_bottom = 555.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 723.0
+margin_bottom = 573.0
 
 [node name="PuzzlePreview" type="TextureRect" parent="CanvasLayer/MarginContainer/Content"]
 margin_left = 750.0

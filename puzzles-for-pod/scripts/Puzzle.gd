@@ -37,7 +37,7 @@ func Init(image:Texture) -> void:
 		ConstructPiece(image, masks[i], pieceSize, position)
 
 	set_scale(Vector2(get_size().x / image.get_size().x, get_size().y / image.get_size().y))
-	if get_scale() != Vector2.ZERO:
+	if get_scale() != Vector2.ONE:
 		push_warning("Wrong image aspect ratio, should be " + str(get_size().x / get_size().y) + " but was " + str(image.get_size().x / image.get_size().y))
 
 func ConstructPiece(image:Texture, mask:Texture, pieceSize:Vector2, position:Vector2) -> void:
