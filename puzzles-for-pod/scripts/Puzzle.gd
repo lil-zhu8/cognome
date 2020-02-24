@@ -40,6 +40,11 @@ func Init(image:Texture) -> void:
 	if get_scale() != Vector2.ONE:
 		push_warning("Wrong image aspect ratio, should be " + str(get_size().x / get_size().y) + " but was " + str(image.get_size().x / image.get_size().y))
 
+	# Randomize sort order
+	for child in get_children():
+		move_child(child, randi() % get_child_count())
+
+
 func ConstructPiece(image:Texture, mask:Texture, pieceSize:Vector2, position:Vector2) -> void:
 	var newPiece:PuzzlePiece = _puzzlePieceScene.instance()
 	newPiece.Init(image, mask, pieceSize, position)
