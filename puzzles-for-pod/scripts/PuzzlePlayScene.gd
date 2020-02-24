@@ -21,6 +21,7 @@ func _ready():
 		PlaceUnused(puzzlePiece)
 	var puzzlePreview:TextureRect = get_node(_puzzlePreviewPath)
 	puzzlePreview.texture = _puzzleImage
+	Load()
 
 func OnGuiInput(event:InputEvent, piece:PuzzlePiece) -> void:
 	var clickEvent:InputEventMouseButton = event as InputEventMouseButton
@@ -41,7 +42,46 @@ func HandleClick(position:Vector2, piece:PuzzlePiece) -> void:
 func HandleRelease() -> void:
 	if _activePiece != null && _activePiece.get_position().length_squared() <= _snapThreshold * _snapThreshold:
 		_activePiece.set_position(Vector2.ZERO)
+	Save()
 	_activePiece = null
+
+func Save() -> void:
+	var file:File = File.new()
+	var data:Dictionary = {}
+	if file.open("user://savegame.txt", File.READ) == OK:
+		data = parse_json(file.get_as_text())
+		file.close()
+
+	SaveData(data)
+
+	if file.open("user://savegame.txt", File.WRITE) == OK:
+		file.store_line(to_json(data))
+		file.close()
+
+func Load() -> void:
+	var file:File = File.new()
+	if file.open("user://savegame.txt", File.READ) != OK:
+		return
+
+	var allData:Dictionary = parse_json(file.get_as_text())
+	file.close()
+	if !allData.has(_puzzleScene.get_name()):
+		return
+
+	var data:Dictionary = allData[_puzzleScene.get_name()]
+	for i in range(_puzzle.Pieces.size()):
+		var piece:PuzzlePiece = _puzzle.Pieces[i]
+		piece.Load(data.pieces[str(i)])
+
+func SaveData(data:Dictionary) -> void:
+	if !data.has(_puzzleScene.get_name()):
+		data[_puzzleScene.get_name()] = {}
+
+	var result:Dictionary = data[_puzzleScene.get_name()]
+	result.pieces = {}
+	for i in range(_puzzle.Pieces.size()):
+		var piece:PuzzlePiece = _puzzle.Pieces[i];
+		result.pieces[str(i)] = piece.Save()
 
 func HandleDrag(position: Vector2) -> void:
 	if _activePiece != null:

@@ -4,6 +4,15 @@ class_name PuzzlePiece
 
 signal GuiInput
 
+func Save() -> Dictionary:
+	var result:Dictionary = {}
+	result.position_x = get_position().x
+	result.position_y = get_position().y
+	return result
+
+func Load(data:Dictionary) -> void:
+	set_position(Vector2(data.position_x, data.position_y))
+
 func PlaceRandomly(rect:Rect2) -> void:
 	var collision:Control = $Collision
 
