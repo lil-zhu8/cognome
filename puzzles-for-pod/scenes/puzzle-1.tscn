@@ -12,5 +12,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 _columns = 7
-_maskPath = "res://sprites/puzzle-masks"
 _puzzlePieceScene = ExtResource( 1 )

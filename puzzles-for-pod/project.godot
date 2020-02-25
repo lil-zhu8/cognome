@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "RigidBody2D",
+"class": "Bubble",
+"language": "GDScript",
+"path": "res://scripts/Bubble.gd"
+}, {
 "base": "Button",
 "class": "GlowingButton",
 "language": "GDScript",
@@ -45,6 +50,7 @@ _global_script_classes=[ {
 "path": "res://scripts/SiteLockUrls.gd"
 } ]
 _global_script_class_icons={
+"Bubble": "",
 "GlowingButton": "",
 "Node2DShaker": "",
 "Puzzle": "",
@@ -66,6 +72,8 @@ config/icon="res://publish/icon_1024.png"
 
 ScreenTransitioner="*res://harmonic-godot/singletons/ScreenTransitioner.tscn"
 AudioPlayer="*res://harmonic-godot/singletons/AudioPlayer.gd"
+Init="res://scripts/Init.gd"
+SaveData="*res://scripts/SaveData.gd"
 
 [debug]
 

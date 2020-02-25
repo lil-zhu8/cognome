@@ -23,6 +23,7 @@ func _ready():
 	var puzzlePreview:TextureRect = get_node(_puzzlePreviewPath)
 	puzzlePreview.texture = _puzzleImage
 	Load()
+	yield(ScreenTransitioner.transitionIn(1.0, ScreenTransitioner.DIAMONDS), "completed")
 
 func OnGuiInput(event:InputEvent, piece:PuzzlePiece) -> void:
 	var clickEvent:InputEventMouseButton = event as InputEventMouseButton
@@ -47,32 +48,23 @@ func HandleRelease() -> void:
 	_activePiece = null
 
 func Save() -> void:
-	var file:File = File.new()
-	var data:Dictionary = {}
-	if file.open("user://savegame.txt", File.READ) == OK:
-		data = parse_json(file.get_as_text())
-		file.close()
-
-	SaveData(data)
-
-	if file.open("user://savegame.txt", File.WRITE) == OK:
-		file.store_line(to_json(data))
-		file.close()
+	var result:Dictionary = {}
+	result.pieces = {}
+	for i in range(_puzzle.Pieces.size()):
+		var piece:PuzzlePiece = _puzzle.Pieces[i];
+		result.pieces[str(i)] = piece.Save()
+	SaveData.Set(_puzzleScene.get_name(), result)
 
 func Load() -> void:
-	var file:File = File.new()
-	if file.open("user://savegame.txt", File.READ) != OK:
-		return
+	var data:Dictionary = SaveData.Get(_puzzleScene.get_name())
+	if data != null:
+		for i in range(_puzzle.Pieces.size()):
+			var piece:PuzzlePiece = _puzzle.Pieces[i]
+			piece.Load(data.pieces[str(i)])
 
-	var allData:Dictionary = parse_json(file.get_as_text())
-	file.close()
-	if !allData.has(_puzzleScene.get_name()):
-		return
-
-	var data:Dictionary = allData[_puzzleScene.get_name()]
-	for i in range(_puzzle.Pieces.size()):
-		var piece:PuzzlePiece = _puzzle.Pieces[i]
-		piece.Load(data.pieces[str(i)])
+	var newPieces:int = SaveData.Get("new_pieces_available") || 0
+	RevealPieces(newPieces)
+	SaveData.Set("new_pieces_available", 0)
 
 func SaveData(data:Dictionary) -> void:
 	if !data.has(_puzzleScene.get_name()):
@@ -94,7 +86,7 @@ func PlaceUnused(piece:PuzzlePiece) -> void:
 	piece.PlaceRandomly(rect)
 
 func RevealPieces(count:int) -> void:
-	
+
 	var i:int = _puzzle.get_child_count() - 1
 	while i >= 0:
 		var piece:PuzzlePiece = _puzzle.get_child(i)
@@ -106,7 +98,8 @@ func RevealPieces(count:int) -> void:
 		i -= 1
 
 func OnMinigameButtonPressed() -> void:
-	RevealPieces(3)
+	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
+	get_tree().change_scene("res://scenes/minigame-scene.tscn")
 
 func HasAvailablePiece() -> bool:
 	for p in _puzzle.Pieces:
