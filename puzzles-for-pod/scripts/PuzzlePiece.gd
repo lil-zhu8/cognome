@@ -12,6 +12,8 @@ func Snap() -> void:
 	set_position(Vector2.ZERO)
 	_locked = true
 	get_parent().move_child(self, 0)
+	var shaderMaterial:ShaderMaterial = material
+	shaderMaterial.set_shader_param("size", 0)
 
 func IsLocked() -> bool:
 	return _locked

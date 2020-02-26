@@ -56,13 +56,12 @@ func Save() -> void:
 	SaveData.Set(_puzzleScene.get_name(), result)
 
 func Load() -> void:
-	var data:Dictionary = SaveData.Get(_puzzleScene.get_name())
-	if data != null:
-		for i in range(_puzzle.Pieces.size()):
-			var piece:PuzzlePiece = _puzzle.Pieces[i]
-			piece.Load(data.pieces[str(i)])
+	var data:Dictionary = SaveData.Get(_puzzleScene.get_name(), {})
+	for i in range(_puzzle.Pieces.size()):
+		var piece:PuzzlePiece = _puzzle.Pieces[i]
+		piece.Load(data.pieces[str(i)])
 
-	var newPieces:int = SaveData.Get("new_pieces_available") || 0
+	var newPieces:int = SaveData.Get("new_pieces_available", 0)
 	RevealPieces(newPieces)
 	SaveData.Set("new_pieces_available", 0)
 
