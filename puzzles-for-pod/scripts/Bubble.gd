@@ -5,7 +5,7 @@ class_name Bubble
 func _ready() -> void:
 	modulate = Color(1, 1, 1, 0)
 	var tween:Tween = Tween.new()
-	tween.interpolate_property(self, "modulate", Color(1, 1, 1, 0), Color(1, 1, 1, 1), 1.0)
+	tween.interpolate_property(self, "modulate", Color(1, 1, 1, 0), Color(1, 1, 1, 1), 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	add_child(tween)
 	tween.start()
 
