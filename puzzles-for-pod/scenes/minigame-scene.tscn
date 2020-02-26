@@ -21,7 +21,6 @@ _bubbleParentPath = NodePath("CanvasLayer/MarginContainer/Content/ViewportContai
 _viewportPath = NodePath("CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport")
 _labelPath = NodePath("CanvasLayer/MarginContainer/Content/Label")
 _bubbleScene = ExtResource( 2 )
-_waitTime = 0.5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
