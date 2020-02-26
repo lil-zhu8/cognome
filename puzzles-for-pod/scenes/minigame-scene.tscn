@@ -6,7 +6,7 @@
 [ext_resource path="res://ui-theme.tres" type="Theme" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1000, 150 )
+extents = Vector2( 1000, 50 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1000, 50 )
@@ -17,9 +17,11 @@ extents = Vector2( 1000, 50 )
 [node name="MinigameScene" type="Node2D"]
 script = ExtResource( 1 )
 _bubbleAreaPath = NodePath("CanvasLayer/BubbleSpawnArea")
-_bubbleParentPath = NodePath("BubbleParent")
+_bubbleParentPath = NodePath("CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport/BubbleParent")
+_viewportPath = NodePath("CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport")
 _labelPath = NodePath("CanvasLayer/MarginContainer/Content/Label")
 _bubbleScene = ExtResource( 2 )
+_waitTime = 0.5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -33,25 +35,31 @@ __meta__ = {
 }
 
 [node name="BubbleSpawnArea" type="Control" parent="CanvasLayer"]
-margin_left = 150.0
-margin_top = 150.0
-margin_right = 875.0
-margin_bottom = 625.0
+anchor_left = 0.146484
+anchor_top = 0.195313
+anchor_right = 0.854492
+anchor_bottom = 0.813802
 mouse_filter = 2
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -384.0
+margin_right = 512.0
+margin_bottom = 384.0
 mouse_filter = 2
 custom_constants/margin_right = 50
 custom_constants/margin_top = 50
 custom_constants/margin_left = 50
 custom_constants/margin_bottom = 50
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="Content" type="Control" parent="CanvasLayer/MarginContainer"]
@@ -105,36 +113,49 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BubbleParent" type="Node2D" parent="."]
+[node name="ViewportContainer" type="ViewportContainer" parent="CanvasLayer/MarginContainer/Content"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 75.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2( 525, 0 )
+[node name="Viewport" type="Viewport" parent="CanvasLayer/MarginContainer/Content/ViewportContainer"]
+size = Vector2( 924, 593 )
+transparent_bg = true
+render_target_update_mode = 3
+
+[node name="BubbleParent" type="Node2D" parent="CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport"]
+
+[node name="Top" type="StaticBody2D" parent="CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport"]
 rotation = -3.14159
 physics_material_override = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport/Top"]
 position = Vector2( 0, -1.52588e-05 )
 shape = SubResource( 1 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 525, 768 )
+[node name="Bottom" type="StaticBody2D" parent="CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport"]
+position = Vector2( 525, 593 )
 physics_material_override = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport/Bottom"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+[node name="Left" type="StaticBody2D" parent="CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport"]
 position = Vector2( 0, 400 )
 rotation = 1.5708
 physics_material_override = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport/Left"]
 shape = SubResource( 2 )
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
-position = Vector2( 1024, 350 )
+[node name="Right" type="StaticBody2D" parent="CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport"]
+position = Vector2( 924, 350 )
 rotation = -1.5708
 physics_material_override = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport/Right"]
 shape = SubResource( 3 )

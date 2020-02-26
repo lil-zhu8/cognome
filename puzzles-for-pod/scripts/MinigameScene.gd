@@ -4,6 +4,7 @@ enum State {SHOW_INITIAL, SHOW_ALL, CLICK, ANSWER}
 
 export var _bubbleAreaPath:NodePath
 export var _bubbleParentPath:NodePath
+export var _viewportPath:NodePath
 export var _labelPath:NodePath
 export var _bubbleScene:PackedScene
 export var _activeBubbleCount:int = 2
@@ -74,13 +75,14 @@ func SpawnBubble() -> void:
 	var x:float
 	var y:float
 
+	var viewport:Viewport = get_node(_viewportPath)
 	while true:
-		x = rand_range(rect.position.x, rect.end.x)
-		y = rand_range(rect.position.y, rect.end.y)
+		x = rand_range(0, viewport.size.x)
+		y = rand_range(0, viewport.size.y)
 		var query:Physics2DShapeQueryParameters = Physics2DShapeQueryParameters.new()
 		query.transform = Transform2D.IDENTITY.translated(Vector2(x, y))
 		query.set_shape(bubble.CollisionShape())
-		var intersections:Array = get_world_2d().direct_space_state.intersect_shape(query)
+		var intersections:Array = viewport.world_2d.direct_space_state.intersect_shape(query)
 		if intersections.size() <= 0:
 			break
 
@@ -96,10 +98,12 @@ func RandomPosition() -> Vector2:
 	return Vector2(x, y)
 
 func _input(event:InputEvent) -> void:
+	var viewport:Viewport = get_node(_viewportPath)
+	var viewportContainer:ViewportContainer = viewport.get_parent()
 	var clickEvent:InputEventMouseButton = event as InputEventMouseButton
 	if clickEvent != null && clickEvent.pressed && _state == State.CLICK:
-		var intersections:Array = get_world_2d().direct_space_state.intersect_point(
-			clickEvent.get_global_position()
+		var intersections:Array = viewport.world_2d.direct_space_state.intersect_point(
+			get_global_mouse_position() - viewportContainer.get_global_position()
 		)
 		for intersection in intersections:
 			var bubble:Bubble = intersection.collider as Bubble
