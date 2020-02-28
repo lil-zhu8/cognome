@@ -25,3 +25,18 @@ func Save() -> void:
 		return
 	file.store_line(to_json(_data))
 	file.close()
+
+func EmptyPuzzleData(puzzleName:String) -> Dictionary:
+	var pieceData:Dictionary = {}
+	var puzzleData:Dictionary = PuzzleData.PUZZLES[puzzleName]
+	var masks:Array = PuzzleMasks.MASKS[puzzleData.masks]["images"]
+	for i in range(masks.size()):
+		pieceData[str(i)] = {
+			"position_x": 0,
+			"position_y": 0,
+			"locked": false,
+			"available": false,
+		}
+	return {
+		"pieces": pieceData
+	}

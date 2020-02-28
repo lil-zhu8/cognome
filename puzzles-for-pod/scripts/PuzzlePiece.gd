@@ -55,6 +55,12 @@ func PlaceRandomly(rect:Rect2) -> void:
 		get_global_transform().xform(-collision.get_position()) + Vector2(x, y) - get_global_position()
 	)
 
+func ZeroPositionCenterY() -> void:
+	var collision:Control = $Collision
+	var pos:Vector2 = -collision.get_position()
+	pos += Vector2.UP * collision.get_size().y * 0.5
+	set_position(pos)
+
 func Init(image:Texture, mask:Texture, size:Vector2, position:Vector2) -> void:
 	texture = image
 	set_size(image.get_size())

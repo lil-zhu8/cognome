@@ -1,0 +1,127 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui-theme.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/MinigameResultsScene.gd" type="Script" id=2]
+
+[node name="MinigameResultsScene" type="Node2D"]
+script = ExtResource( 2 )
+_puzzlePieceParent = NodePath("CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/PuzzlePieceParent")
+_resultLabelPath = NodePath("CanvasLayer/MarginContainer/Content/ResultLabel")
+_pieceSpacing = 35
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -384.0
+margin_right = 512.0
+margin_bottom = 384.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="Control" parent="CanvasLayer/MarginContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 974.0
+margin_bottom = 718.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/MarginContainer/Content"]
+anchor_right = 1.0
+margin_bottom = 14.0
+theme = ExtResource( 1 )
+text = "Results"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomSection" type="Control" parent="CanvasLayer/MarginContainer/Content"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -143.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/Content/BottomSection"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YouEarned" type="Label" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer"]
+margin_top = 25.0
+margin_right = 120.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 120, 0 )
+theme = ExtResource( 1 )
+text = "You earned:"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PuzzlePieceParent" type="HBoxContainer" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer"]
+margin_left = 124.0
+margin_right = 699.0
+margin_bottom = 143.0
+mouse_filter = 2
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer"]
+margin_left = 703.0
+margin_top = 31.0
+margin_right = 924.0
+margin_bottom = 111.0
+rect_min_size = Vector2( 0, 80 )
+size_flags_vertical = 4
+theme = ExtResource( 1 )
+text = "Resume Puzzle"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResultLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/Content"]
+margin_left = 75.0
+margin_top = 125.0
+margin_right = 375.0
+margin_bottom = 450.0
+theme = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]You got
+[color=red]95%[/color]
+correct![/center]"
+text = "You got
+95%
+correct!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/ResumeButton" to="." method="OnResumeButtonPressed"]

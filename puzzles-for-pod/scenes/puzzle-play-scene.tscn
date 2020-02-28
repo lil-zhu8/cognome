@@ -1,8 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/PuzzlePlayScene.gd" type="Script" id=1]
-[ext_resource path="res://sprites/puzzle-images/waterfall.jpg" type="Texture" id=2]
-[ext_resource path="res://scenes/puzzle-1.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui-theme.tres" type="Theme" id=4]
 [ext_resource path="res://scripts/GlowingButton.gd" type="Script" id=5]
 [ext_resource path="res://sprites/puzzle-images/fall_img.jpg" type="Texture" id=6]
@@ -33,8 +31,6 @@ corner_radius_bottom_left = 8
 
 [node name="PuzzleScene" type="Node"]
 script = ExtResource( 1 )
-_puzzleImage = ExtResource( 2 )
-_puzzleScene = ExtResource( 3 )
 _puzzleParentPath = NodePath("CanvasLayer/MarginContainer/Content/PuzzleBackground/MarginContainer/PuzzleParent")
 _puzzlePreviewPath = NodePath("CanvasLayer/MarginContainer/Content/PuzzlePreview")
 _unusedPositionPath = NodePath("CanvasLayer/MarginContainer/Content/UnusedPiecesBackground/UnusedPiecesPosition")

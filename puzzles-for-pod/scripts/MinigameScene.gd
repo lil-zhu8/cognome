@@ -36,7 +36,9 @@ func _ready() -> void:
 	yield(get_tree().create_timer(0.5), "timeout")
 	for _i in range(_inactiveBubbleCount):
 		SpawnBubble()
-	yield(get_tree().create_timer(_waitTime), "timeout")
+	
+	if !OS.is_debug_build() || !Input.is_key_pressed(KEY_SHIFT):
+		yield(get_tree().create_timer(_waitTime), "timeout")
 
 	_state = State.CLICK
 	label.text = "Tap on the original %d bubbles!" % _activeBubbleCount
@@ -60,10 +62,11 @@ func _ready() -> void:
 		bubble.HighlightCorrect()
 		correctCount += 1
 
-	SaveData.Set("new_pieces_available", correctCount)
 	yield(self, "_unhandledClick")
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
-	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
+	SaveData.set("minigame_score", correctCount)
+	SaveData.set("minigame_max_score", _activeBubbleCount)
+	get_tree().change_scene("res://scenes/minigame-results-scene.tscn")
 
 func SpawnBubble() -> void:
 	var bubbleArea:Control = get_node(_bubbleAreaPath)

@@ -1,7 +1,5 @@
 extends Node
 
-export var _puzzleImage:Texture
-export var _puzzleScene:PackedScene
 export var _snapThreshold:int = 25
 export var _puzzleParentPath:NodePath
 export var _puzzlePreviewPath:NodePath
@@ -13,16 +11,19 @@ var _dragOffset:Vector2
 var _puzzle:Puzzle
 
 func _ready():
-	_puzzle = _puzzleScene.instance()
+	var activePuzzle = SaveData.Get("active_puzzle", "1")
+	var puzzleData:Dictionary = PuzzleData.PUZZLES[activePuzzle]
+	_puzzle = Puzzle.new()
 	get_node(_puzzleParentPath).add_child(_puzzle)
-	_puzzle.Init(_puzzleImage)
+	_puzzle.Init(puzzleData)
 	for piece in _puzzle.Pieces:
 		var puzzlePiece:PuzzlePiece = piece as PuzzlePiece
 		puzzlePiece.connect("GuiInput", self, "OnGuiInput", [puzzlePiece])
 		PlaceUnused(puzzlePiece)
 	var puzzlePreview:TextureRect = get_node(_puzzlePreviewPath)
-	puzzlePreview.texture = _puzzleImage
+	puzzlePreview.texture = puzzleData.image
 	Load()
+	Save()
 	yield(ScreenTransitioner.transitionIn(1.0, ScreenTransitioner.DIAMONDS), "completed")
 
 func OnGuiInput(event:InputEvent, piece:PuzzlePiece) -> void:
@@ -53,27 +54,16 @@ func Save() -> void:
 	for i in range(_puzzle.Pieces.size()):
 		var piece:PuzzlePiece = _puzzle.Pieces[i];
 		result.pieces[str(i)] = piece.Save()
-	SaveData.Set(_puzzleScene.get_name(), result)
+	var activePuzzle:String = SaveData.Get("active_puzzle", "1")
+	SaveData.Set(activePuzzle, result)
 
 func Load() -> void:
-	var data:Dictionary = SaveData.Get(_puzzleScene.get_name(), {})
+	var activePuzzle:String = SaveData.Get("active_puzzle", "1")
+	var data:Dictionary = SaveData.Get(activePuzzle, SaveData.EmptyPuzzleData(activePuzzle))
 	for i in range(_puzzle.Pieces.size()):
 		var piece:PuzzlePiece = _puzzle.Pieces[i]
-		piece.Load(data.pieces[str(i)])
-
-	var newPieces:int = SaveData.Get("new_pieces_available", 0)
-	RevealPieces(newPieces)
-	SaveData.Set("new_pieces_available", 0)
-
-func SaveData(data:Dictionary) -> void:
-	if !data.has(_puzzleScene.get_name()):
-		data[_puzzleScene.get_name()] = {}
-
-	var result:Dictionary = data[_puzzleScene.get_name()]
-	result.pieces = {}
-	for i in range(_puzzle.Pieces.size()):
-		var piece:PuzzlePiece = _puzzle.Pieces[i];
-		result.pieces[str(i)] = piece.Save()
+		if data.pieces.has(str(i)):
+			piece.Load(data.pieces[str(i)])
 
 func HandleDrag(position:Vector2) -> void:
 	if _activePiece != null:
@@ -83,18 +73,6 @@ func PlaceUnused(piece:PuzzlePiece) -> void:
 	var unusedPosition:Control = get_node(_unusedPositionPath)
 	var rect:Rect2 = unusedPosition.get_global_rect()
 	piece.PlaceRandomly(rect)
-
-func RevealPieces(count:int) -> void:
-
-	var i:int = _puzzle.get_child_count() - 1
-	while i >= 0:
-		var piece:PuzzlePiece = _puzzle.get_child(i)
-		if !piece.IsAvailable():
-			piece.MakeAvailable()
-			count -= 1
-			if count <= 0:
-				return
-		i -= 1
 
 func OnMinigameButtonPressed() -> void:
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
