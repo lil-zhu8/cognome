@@ -9,6 +9,7 @@ export var _minigameButtonPath:NodePath
 var _activePiece:PuzzlePiece = null
 var _dragOffset:Vector2
 var _puzzle:Puzzle
+var _transitioning:bool = true
 
 func _ready():
 	var activePuzzle = SaveData.Get("active_puzzle", "1")
@@ -25,6 +26,7 @@ func _ready():
 	Load()
 	Save()
 	yield(ScreenTransitioner.transitionIn(1.0, ScreenTransitioner.DIAMONDS), "completed")
+	_transitioning = false
 
 func OnGuiInput(event:InputEvent, piece:PuzzlePiece) -> void:
 	var clickEvent:InputEventMouseButton = event as InputEventMouseButton
@@ -75,6 +77,9 @@ func PlaceUnused(piece:PuzzlePiece) -> void:
 	piece.PlaceRandomly(rect)
 
 func OnMinigameButtonPressed() -> void:
+	if _transitioning:
+		return
+	_transitioning = true
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/minigame-scene.tscn")
 
@@ -89,9 +94,16 @@ func _process(_delta:float) -> void:
 	var button:GlowingButton = get_node(_minigameButtonPath)
 	button.Enabled = !HasAvailablePiece()
 
-func OnMorePuzzlesButtonPressed() -> void:
+func ResetPuzzle() -> void:
 	_puzzle.Reset()
 	for p in _puzzle.Pieces:
 		var piece:PuzzlePiece = p
 		PlaceUnused(piece)
 	Save()
+
+func OnMorePuzzlesButtonPressed() -> void:
+	if _transitioning:
+		return
+	_transitioning = true
+	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
+	get_tree().change_scene("res://scenes/puzzle-select-scene.tscn")

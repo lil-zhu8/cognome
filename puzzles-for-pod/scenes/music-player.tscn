@@ -35,5 +35,4 @@ __meta__ = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicPlayer"]
 stream = ExtResource( 2 )
-autoplay = true
 [connection signal="pressed" from="MusicPlayer/Button" to="MusicPlayer" method="OnButtonPressed"]

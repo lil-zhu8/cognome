@@ -12,15 +12,11 @@ export var _maxPiecesToUnlock:int = 7
 export var _pieceSpacing:int = 20
 export var _graphLinePath:NodePath
 export var _graphViewportPath:NodePath
+
 var _lastPoint:Sprite = null
-
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
+var _transitioning:bool = true
 var _unlockedPieces = []
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var score:float = SaveData.Get("minigame_score", 6)
 	var maxScore:float = SaveData.Get("minigame_max_score", 10)
@@ -53,6 +49,7 @@ func _ready() -> void:
 	SaveData.Set(puzzleName, data)
 	SpawnUnlockedPieces()
 	yield(ScreenTransitioner.transitionIn(1.0, ScreenTransitioner.DIAMONDS), "completed")
+	_transitioning = false
 
 func DrawGraph() -> void:
 	var scoreHistory:Array = SaveData.Get("score_history", [0.2, .5, .7, .3, 1])
@@ -62,7 +59,9 @@ func DrawGraph() -> void:
 	var height:float = viewport.size.y - _viewportMargin * 2
 	var arr:PoolVector2Array = PoolVector2Array()
 	for i in scoreHistory.size():
-		var x:float = width * i / (scoreHistory.size() - 1) + _viewportXMargin
+		var x:float = _viewportXMargin + 0.5 * width
+		if scoreHistory.size() > 1:
+			x = width * i / (scoreHistory.size() - 1) + _viewportXMargin
 		var y:float = (1 - scoreHistory[i]) * viewport.size.y + _viewportMargin
 
 		arr.append(Vector2(x, y))
@@ -102,6 +101,9 @@ func SpawnUnlockedPieces() -> void:
 		piece.MakeAvailable()
 
 func OnResumeButtonPressed() -> void:
+	if _transitioning:
+		return
+	_transitioning = true
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
 
@@ -110,4 +112,3 @@ func _process(delta:float) -> void:
 		return
 	var l:float = sin(OS.get_ticks_msec() * .001 * 2 * PI / 1.0) * 0.5 + 0.5
 	_lastPoint.modulate = lerp(Color(1, 0, 1), Color(0, 0, 1), l)
-	

@@ -26,6 +26,18 @@ func Save() -> void:
 	file.store_line(to_json(_data))
 	file.close()
 
+func GetProgress(puzzleName:String) -> float:
+	if !_data.has(puzzleName):
+		return 0.0
+	var puzzleSaveData:Dictionary = _data.get(puzzleName)
+	var lockedPieces:float = 0
+	for i in puzzleSaveData.pieces:
+		if puzzleSaveData.pieces[i].locked:
+			lockedPieces += 0.5
+		if puzzleSaveData.pieces[i].available:
+			lockedPieces += 0.5
+	return lockedPieces / puzzleSaveData.pieces.size()
+
 func EmptyPuzzleData(puzzleName:String) -> Dictionary:
 	var pieceData:Dictionary = {}
 	var puzzleData:Dictionary = PuzzleData.PUZZLES[puzzleName]

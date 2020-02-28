@@ -1,0 +1,124 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui-theme.tres" type="Theme" id=2]
+[ext_resource path="res://scripts/PuzzleSelectScene.gd" type="Script" id=3]
+
+[node name="PuzzleSelectScene" type="Node2D"]
+script = ExtResource( 3 )
+_gridPath = NodePath("CanvasLayer/MarginContainer/Content/ScrollContainer/GridContainer")
+_popup = NodePath("CanvasLayer/Popup")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -384.0
+margin_right = 512.0
+margin_bottom = 384.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="Control" parent="CanvasLayer/MarginContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 974.0
+margin_bottom = 718.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content"]
+anchor_right = 1.0
+margin_bottom = 45.0
+theme = ExtResource( 2 )
+text = "Choose a puzzle"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/MarginContainer/Content"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -593.0
+rect_min_size = Vector2( 200, 200 )
+mouse_filter = 2
+scroll_vertical_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/MarginContainer/Content/ScrollContainer"]
+margin_right = 300.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 100, 100 )
+mouse_filter = 2
+custom_constants/vseparation = 10
+custom_constants/hseparation = 10
+columns = 3
+
+[node name="ChooseYourOwn" type="Control" parent="CanvasLayer/MarginContainer/Content/ScrollContainer/GridContainer"]
+margin_right = 300.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 300, 200 )
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/MarginContainer/Content/ScrollContainer/GridContainer/ChooseYourOwn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+text = "Add Your Own"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/MarginContainer/Content"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AcceptDialog" type="AcceptDialog" parent="CanvasLayer/Popup"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -132.0
+margin_top = -56.5
+margin_right = 132.0
+margin_bottom = 57.5
+rect_pivot_offset = Vector2( 132, 57 )
+window_title = "Coming Soon"
+dialog_text = "This feature is unavailable right now."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="CanvasLayer/MarginContainer/Content/ScrollContainer/GridContainer/ChooseYourOwn/Button" to="." method="OnButtonPressed" binds= [ "more_puzzles" ]]

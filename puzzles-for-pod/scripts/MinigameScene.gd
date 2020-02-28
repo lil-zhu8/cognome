@@ -60,12 +60,13 @@ func _ready() -> void:
 	for i in _activeBubbleCount:
 		var bubble:Bubble = _bubbles[i]
 		bubble.HighlightCorrect()
-		correctCount += 1
+		if _clickedBubbles.find(bubble):
+			correctCount += 1
 
 	yield(self, "_unhandledClick")
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
-	SaveData.set("minigame_score", correctCount)
-	SaveData.set("minigame_max_score", _activeBubbleCount)
+	SaveData.Set("minigame_score", correctCount)
+	SaveData.Set("minigame_max_score", _activeBubbleCount)
 	var scoreHistory:Array = SaveData.Get("score_history", [])
 	scoreHistory.append(float(correctCount) / _activeBubbleCount)
 	SaveData.Set("score_history", scoreHistory)
