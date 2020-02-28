@@ -18,6 +18,7 @@ export var _roundCount:int = 5
 var _bubbles = []
 var _state
 var _clickedBubbles = []
+var _transitioning = true
 
 signal _bubbleClicked
 signal _unhandledClick
@@ -33,6 +34,7 @@ func _ready() -> void:
 		SpawnBubble()
 
 	yield(ScreenTransitioner.transitionIn(1.0, ScreenTransitioner.DIAMONDS), "completed")
+	_transitioning = false
 
 	yield(self, "_unhandledClick")
 
@@ -70,6 +72,11 @@ func _ready() -> void:
 		bubble.HighlightCorrect()
 
 	yield(self, "_unhandledClick")
+
+	if _transitioning:
+		return
+	_transitioning = true
+
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	var total1:int = SaveData.Get("minigame_score", 0)
 	var total2:int = SaveData.Get("minigame_max_score", 0)
@@ -140,3 +147,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	var clickEvent:InputEventMouseButton = event as InputEventMouseButton
 	if clickEvent != null && clickEvent.pressed:
 		emit_signal("_unhandledClick")
+
+func ExitButtonPressed() -> void:
+	if _transitioning:
+		return
+	_transitioning = true
+	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
+	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")

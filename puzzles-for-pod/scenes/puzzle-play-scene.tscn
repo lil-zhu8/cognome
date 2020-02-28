@@ -31,6 +31,7 @@ corner_radius_bottom_left = 8
 
 [node name="PuzzleScene" type="Node"]
 script = ExtResource( 1 )
+_snapThreshold = 50
 _puzzleParentPath = NodePath("CanvasLayer/MarginContainer/Content/PuzzleBackground/MarginContainer/PuzzleParent")
 _puzzlePreviewPath = NodePath("CanvasLayer/MarginContainer/Content/PuzzlePreview")
 _unusedPositionPath = NodePath("CanvasLayer/MarginContainer/Content/UnusedPiecesBackground/UnusedPiecesPosition")
