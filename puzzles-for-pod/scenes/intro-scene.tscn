@@ -1,21 +1,55 @@
-[gd_scene format=2]
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ui-theme.tres" type="Theme" id=1]
+[ext_resource path="res://fonts/nunito-font-large.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scripts/GlowingControl.gd" type="Script" id=3]
+[ext_resource path="res://scripts/IntroScene.gd" type="Script" id=4]
 
 [node name="IntroScene" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -42.5
-margin_top = -7.0
-margin_right = 42.5
-margin_bottom = 7.0
+margin_left = -279.5
+margin_top = -238.297
+margin_right = 279.5
+margin_bottom = -134.297
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "This is a test!"
+text = "Puzzles for POD"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -114.5
+margin_top = 103.377
+margin_right = 114.5
+margin_bottom = 148.377
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.5, 0.5, 0.5, 1 )
+text = "Tap to Continue"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+GlowColor = Color( 0, 0, 0, 1 )

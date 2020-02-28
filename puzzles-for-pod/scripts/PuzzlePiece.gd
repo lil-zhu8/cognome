@@ -6,6 +6,7 @@ signal GuiInput
 
 var _locked:bool = false
 var _available:bool = false
+var JustAvailable:bool = false
 const SIZE_FACTOR:float = 1.5
 
 func Snap() -> void:
@@ -31,15 +32,17 @@ func Save() -> Dictionary:
 	result.position_y = get_position().y
 	result.locked = _locked
 	result.available = _available
+	result.just_available = false
 	return result
 
 func Load(data:Dictionary) -> void:
-	if !data.has_all(["position_x", "position_y", "locked", "available"]):
+	if !data.has_all(["position_x", "position_y", "locked", "available", "just_available"]):
 		return
 	set_position(Vector2(data.position_x, data.position_y))
 	_available = data.available
 	visible = _available
 	_locked = data.locked
+	JustAvailable = data.just_available
 	if _locked:
 		Snap()
 

@@ -20,10 +20,13 @@ func _ready():
 	for piece in _puzzle.Pieces:
 		var puzzlePiece:PuzzlePiece = piece as PuzzlePiece
 		puzzlePiece.connect("GuiInput", self, "OnGuiInput", [puzzlePiece])
-		PlaceUnused(puzzlePiece)
 	var puzzlePreview:TextureRect = get_node(_puzzlePreviewPath)
 	puzzlePreview.texture = puzzleData.image
 	Load()
+	for piece in _puzzle.Pieces:
+		var puzzlePiece:PuzzlePiece = piece as PuzzlePiece
+		if puzzlePiece.JustAvailable:
+			PlaceUnused(puzzlePiece)
 	Save()
 	yield(ScreenTransitioner.transitionIn(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	_transitioning = false

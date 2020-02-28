@@ -44,6 +44,7 @@ func _ready() -> void:
 			break
 		var key:String = unavailablePieces[i]
 		pieces[key].available = true
+		pieces[key].just_available = true
 		_unlockedPieces.append(key)
 
 	SaveData.Set(puzzleName, data)

@@ -57,11 +57,12 @@ func _ready() -> void:
 	for bubble in _clickedBubbles:
 		if _bubbles.find(bubble) >= _activeBubbleCount:
 			bubble.HighlightWrong()
+		else:
+			correctCount += 1
+
 	for i in _activeBubbleCount:
 		var bubble:Bubble = _bubbles[i]
 		bubble.HighlightCorrect()
-		if _clickedBubbles.find(bubble):
-			correctCount += 1
 
 	yield(self, "_unhandledClick")
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
