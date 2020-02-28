@@ -90,7 +90,7 @@ __meta__ = {
 
 [node name="PuzzlePieceParent" type="HBoxContainer" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer"]
 margin_left = 124.0
-margin_right = 699.0
+margin_right = 848.0
 margin_bottom = 143.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -98,10 +98,72 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Slot1" type="Control" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/PuzzlePieceParent"]
+margin_top = 21.0
+margin_right = 100.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Slot2" type="Control" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/PuzzlePieceParent"]
+margin_left = 104.0
+margin_top = 21.0
+margin_right = 204.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Slot3" type="Control" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/PuzzlePieceParent"]
+margin_left = 208.0
+margin_top = 21.0
+margin_right = 308.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Slot4" type="Control" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/PuzzlePieceParent"]
+margin_left = 312.0
+margin_top = 21.0
+margin_right = 412.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Slot5" type="Control" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/PuzzlePieceParent"]
+margin_left = 416.0
+margin_top = 21.0
+margin_right = 516.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Slot6" type="Control" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/PuzzlePieceParent"]
+margin_left = 520.0
+margin_top = 21.0
+margin_right = 620.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Slot7" type="Control" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/PuzzlePieceParent"]
+margin_left = 624.0
+margin_top = 21.0
+margin_right = 724.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
 [node name="ResumeButton" type="Button" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer"]
-margin_left = 703.0
+margin_left = 852.0
 margin_top = 31.0
-margin_right = 924.0
+margin_right = 1073.0
 margin_bottom = 111.0
 rect_min_size = Vector2( 0, 80 )
 size_flags_vertical = 4
