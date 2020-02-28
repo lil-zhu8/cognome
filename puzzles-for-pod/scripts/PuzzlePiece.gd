@@ -9,12 +9,40 @@ var _available:bool = false
 var JustAvailable:bool = false
 const SIZE_FACTOR:float = 1.5
 
-func Snap() -> void:
+func Snap(instant:bool) -> void:
 	set_position(Vector2.ZERO)
 	_locked = true
 	get_parent().move_child(self, 0)
 	var shaderMaterial:ShaderMaterial = material
-	shaderMaterial.set_shader_param("size", 0)
+
+	if instant:
+		shaderMaterial.set_shader_param("size", 0.0)
+		return
+
+	var tween:Tween = Tween.new()
+	tween.interpolate_property(shaderMaterial,
+		"shader_param/glow",
+		0, 1, 0.2,
+		Tween.TRANS_QUAD, Tween.EASE_OUT)
+	add_child(tween)
+	tween.start()
+	yield(tween, "tween_completed")
+
+	var tweenb:Tween = Tween.new()
+	var tweenc:Tween = Tween.new()
+
+	tweenb.interpolate_property(shaderMaterial,
+		"shader_param/glow",
+		1, 0, 0.5,
+		Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	tweenc.interpolate_property(shaderMaterial,
+		"shader_param/size",
+		0.004, 0, 0.5,
+		Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	add_child(tweenb)
+	add_child(tweenc)
+	tweenb.start()
+	tweenc.start()
 
 func IsLocked() -> bool:
 	return _locked
@@ -44,7 +72,7 @@ func Load(data:Dictionary) -> void:
 	_locked = data.locked
 	JustAvailable = data.just_available
 	if _locked:
-		Snap()
+		Snap(true)
 
 func PlaceRandomly(rect:Rect2) -> void:
 	var collision:Control = $Collision
