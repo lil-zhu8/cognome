@@ -66,6 +66,9 @@ func _ready() -> void:
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	SaveData.set("minigame_score", correctCount)
 	SaveData.set("minigame_max_score", _activeBubbleCount)
+	var scoreHistory:Array = SaveData.Get("score_history", [])
+	scoreHistory.append(float(correctCount) / _activeBubbleCount)
+	SaveData.Set("score_history", scoreHistory)
 	get_tree().change_scene("res://scenes/minigame-results-scene.tscn")
 
 func SpawnBubble() -> void:

@@ -6,6 +6,8 @@ export var _resultLabelPath:NodePath
 export var _minPiecesToUnlock:int = 0
 export var _maxPiecesToUnlock:int = 7
 export var _pieceSpacing:int = 20
+export var _graphLinePath:NodePath
+export var _graphViewportPath:NodePath
 
 # Declare member variables here. Examples:
 # var a: int = 2
@@ -17,6 +19,7 @@ var _unlockedPieces = []
 func _ready() -> void:
 	var score:float = SaveData.Get("minigame_score", 6)
 	var maxScore:float = SaveData.Get("minigame_max_score", 10)
+	DrawGraph()
 
 	var resultLabel:RichTextLabel = get_node(_resultLabelPath)
 	var rounded:int = round(100 * score / maxScore)
@@ -45,6 +48,20 @@ func _ready() -> void:
 	SaveData.Set(puzzleName, data)
 	SpawnUnlockedPieces()
 	yield(ScreenTransitioner.transitionIn(1.0, ScreenTransitioner.DIAMONDS), "completed")
+
+func DrawGraph() -> void:
+	var scoreHistory:Array = SaveData.Get("score_history", [0.2, .5, .7, .3, 1])
+	var line:Line2D = get_node(_graphLinePath)
+	var viewport:Viewport = get_node(_graphViewportPath)
+	var width:float = viewport.size.x
+	var height:float = viewport.size.y
+	var arr:PoolVector2Array = PoolVector2Array()
+	for i in scoreHistory.size():
+		var x:float = width * i / (scoreHistory.size() - 1)
+		var y:float = (1 - scoreHistory[i]) * viewport.size.y
+		arr.append(Vector2(x, y))
+		print(arr)
+	line.points = arr
 
 func SpawnUnlockedPieces() -> void:
 	var puzzleName:String = SaveData.Get("active_puzzle", "1")
