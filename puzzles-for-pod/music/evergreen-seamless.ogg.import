@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/evergreen-seamless.ogg-614edcb46862088920657bbe6d941a2a.oggstr"
+
+[deps]
+
+source_file="res://music/evergreen-seamless.ogg"
+dest_files=[ "res://.import/evergreen-seamless.ogg-614edcb46862088920657bbe6d941a2a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

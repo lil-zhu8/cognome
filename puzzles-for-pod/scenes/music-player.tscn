@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/MusicPlayer.gd" type="Script" id=1]
+[ext_resource path="res://music/evergreen-seamless.ogg" type="AudioStream" id=2]
+[ext_resource path="res://ui-theme.tres" type="Theme" id=3]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+layer = 5
+
+[node name="MusicPlayer" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -384.0
+margin_right = 512.0
+margin_bottom = 384.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="MusicPlayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -84.0
+margin_bottom = 47.0
+theme = ExtResource( 3 )
+text = "Music"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicPlayer"]
+stream = ExtResource( 2 )
+autoplay = true
+[connection signal="pressed" from="MusicPlayer/Button" to="MusicPlayer" method="OnButtonPressed"]
