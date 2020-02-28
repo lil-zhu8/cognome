@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui-theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/MinigameResultsScene.gd" type="Script" id=2]
+[ext_resource path="res://fonts/nunito-font-small.tres" type="DynamicFont" id=3]
 
 [node name="MinigameResultsScene" type="Node2D"]
 script = ExtResource( 2 )
@@ -111,10 +112,10 @@ __meta__ = {
 }
 
 [node name="ResultLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/Content"]
-margin_left = 75.0
-margin_top = 200.0
-margin_right = 375.0
-margin_bottom = 450.0
+margin_left = 5.0
+margin_top = 237.0
+margin_right = 305.0
+margin_bottom = 487.0
 theme = ExtResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]You got
@@ -139,7 +140,6 @@ __meta__ = {
 [node name="ViewportContainer" type="ViewportContainer" parent="CanvasLayer/MarginContainer/Content/Graph"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -147,7 +147,338 @@ __meta__ = {
 [node name="Viewport" type="Viewport" parent="CanvasLayer/MarginContainer/Content/Graph/ViewportContainer"]
 size = Vector2( 475, 350 )
 transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
 
 [node name="Line2D" type="Line2D" parent="CanvasLayer/MarginContainer/Content/Graph/ViewportContainer/Viewport"]
 points = PoolVector2Array( 0, 0, 50, 50 )
+width = 4.0
+default_color = Color( 0.14902, 0.654902, 0.596078, 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/Content/Graph"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 465.0
+margin_bottom = 340.0
+
+[node name="Left" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control"]
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_bottom = 3.05176e-05
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bottom" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 3.05176e-05
+margin_bottom = 5.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AxisLeft" type="Control" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control"]
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomLine" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -30.0
+margin_right = -1.90735e-06
+margin_bottom = 5.0
+rect_min_size = Vector2( 0, 5 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/BottomLine"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -50.0
+margin_right = -40.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "0"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -30.0
+margin_bottom = 3.05176e-05
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer"]
+margin_right = 30.0
+margin_bottom = 5.0
+rect_min_size = Vector2( 0, 5 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer/ColorRect"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -50.0
+margin_right = -40.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "100"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer"]
+margin_top = 33.0
+margin_right = 30.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 0, 2 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer/ColorRect2"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -50.0
+margin_right = -11.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+text = "1"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer"]
+margin_top = 66.0
+margin_right = 30.0
+margin_bottom = 71.0
+rect_min_size = Vector2( 0, 5 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer/ColorRect3"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -50.0
+margin_right = -40.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "80"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect4" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer"]
+margin_top = 99.0
+margin_right = 30.0
+margin_bottom = 101.0
+rect_min_size = Vector2( 0, 2 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer/ColorRect4"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -50.0
+margin_right = -11.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+text = "1"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect5" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer"]
+margin_top = 132.0
+margin_right = 30.0
+margin_bottom = 137.0
+rect_min_size = Vector2( 0, 5 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer/ColorRect5"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -50.0
+margin_right = -40.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "60"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect6" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer"]
+margin_top = 165.0
+margin_right = 30.0
+margin_bottom = 167.0
+rect_min_size = Vector2( 0, 2 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer/ColorRect6"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -50.0
+margin_right = -11.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+text = "1"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect7" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer"]
+margin_top = 198.0
+margin_right = 30.0
+margin_bottom = 203.0
+rect_min_size = Vector2( 0, 5 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer/ColorRect7"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -50.0
+margin_right = -40.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "40"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect8" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer"]
+margin_top = 231.0
+margin_right = 30.0
+margin_bottom = 233.0
+rect_min_size = Vector2( 0, 2 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer/ColorRect8"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -50.0
+margin_right = -11.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+text = "1"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect9" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer"]
+margin_top = 264.0
+margin_right = 30.0
+margin_bottom = 269.0
+rect_min_size = Vector2( 0, 5 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer/ColorRect9"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -50.0
+margin_right = -40.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "20"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect10" type="ColorRect" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer"]
+margin_top = 297.0
+margin_right = 30.0
+margin_bottom = 299.0
+rect_min_size = Vector2( 0, 2 )
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Content/Graph/MarginContainer/Control/AxisLeft/VBoxContainer/ColorRect10"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -50.0
+margin_right = -11.0
+margin_bottom = 50.0
+theme = ExtResource( 1 )
+text = "1"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/ResumeButton" to="." method="OnResumeButtonPressed"]

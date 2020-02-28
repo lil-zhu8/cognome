@@ -1,6 +1,10 @@
 extends Node2D
 
 const _puzzlePieceScene:PackedScene = preload("res://scenes/puzzle-piece.tscn")
+const _whitePixel:Texture = preload("res://harmonic-godot/sprites/white-pixel.png")
+export var _viewportMargin:int = 10
+export var _viewportXMargin:int = 30
+export var _pointColor:Color = Color(0, 0.3, 0.9)
 export var _puzzlePieceParent:NodePath
 export var _resultLabelPath:NodePath
 export var _minPiecesToUnlock:int = 0
@@ -8,6 +12,7 @@ export var _maxPiecesToUnlock:int = 7
 export var _pieceSpacing:int = 20
 export var _graphLinePath:NodePath
 export var _graphViewportPath:NodePath
+var _lastPoint:Sprite = null
 
 # Declare member variables here. Examples:
 # var a: int = 2
@@ -53,14 +58,21 @@ func DrawGraph() -> void:
 	var scoreHistory:Array = SaveData.Get("score_history", [0.2, .5, .7, .3, 1])
 	var line:Line2D = get_node(_graphLinePath)
 	var viewport:Viewport = get_node(_graphViewportPath)
-	var width:float = viewport.size.x
-	var height:float = viewport.size.y
+	var width:float = viewport.size.x - _viewportXMargin * 2
+	var height:float = viewport.size.y - _viewportMargin * 2
 	var arr:PoolVector2Array = PoolVector2Array()
 	for i in scoreHistory.size():
-		var x:float = width * i / (scoreHistory.size() - 1)
-		var y:float = (1 - scoreHistory[i]) * viewport.size.y
+		var x:float = width * i / (scoreHistory.size() - 1) + _viewportXMargin
+		var y:float = (1 - scoreHistory[i]) * viewport.size.y + _viewportMargin
+
 		arr.append(Vector2(x, y))
-		print(arr)
+		var pix:Sprite = Sprite.new()
+		pix.texture = _whitePixel
+		pix.scale = Vector2(10, 10)
+		pix.modulate = _pointColor
+		viewport.add_child(pix)
+		pix.position = Vector2(x, y)
+		_lastPoint = pix
 	line.points = arr
 
 func SpawnUnlockedPieces() -> void:
@@ -92,3 +104,10 @@ func SpawnUnlockedPieces() -> void:
 func OnResumeButtonPressed() -> void:
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
+
+func _process(delta:float) -> void:
+	if _lastPoint == null:
+		return
+	var l:float = sin(OS.get_ticks_msec() * .001 * 2 * PI / 1.0) * 0.5 + 0.5
+	_lastPoint.modulate = lerp(Color(1, 0, 1), Color(0, 0, 1), l)
+	

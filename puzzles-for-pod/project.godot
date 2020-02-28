@@ -80,6 +80,7 @@ ScreenTransitioner="*res://harmonic-godot/singletons/ScreenTransitioner.tscn"
 AudioPlayer="*res://harmonic-godot/singletons/AudioPlayer.gd"
 Init="res://scripts/Init.gd"
 SaveData="*res://scripts/SaveData.gd"
+MusicPlayer="res://scenes/music-player.tscn"
 
 [debug]
 
