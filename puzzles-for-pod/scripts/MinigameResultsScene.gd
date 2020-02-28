@@ -29,7 +29,6 @@ func _ready() -> void:
 
 	var puzzleName:String = SaveData.Get("active_puzzle", "1")
 	var data:Dictionary = SaveData.Get(puzzleName, SaveData.EmptyPuzzleData(puzzleName))
-	data = SaveData.EmptyPuzzleData(puzzleName)
 
 	var pieces:Dictionary = data.pieces
 	var unavailablePieces:Array = []

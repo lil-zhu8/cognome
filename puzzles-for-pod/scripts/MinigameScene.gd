@@ -6,12 +6,14 @@ export var _bubbleAreaPath:NodePath
 export var _bubbleParentPath:NodePath
 export var _viewportPath:NodePath
 export var _labelPath:NodePath
+export var _roundLabelPath:NodePath
 export var _bubbleScene:PackedScene
 export var _activeBubbleCount:int = 2
 export var _inactiveBubbleCount:int = 12
 export var _waitTime:float = 6.0
 export var _minSpeed:float = 50.0
 export var _maxSpeed:float = 100.0
+export var _roundCount:int = 5
 
 var _bubbles = []
 var _state
@@ -21,6 +23,9 @@ signal _bubbleClicked
 signal _unhandledClick
 
 func _ready() -> void:
+	var roundNumber:int = SaveData.Get("minigame_round", 0)
+	var roundLabel:Label = get_node(_roundLabelPath)
+	roundLabel.text = "Round %d/%d" % [roundNumber + 1, _roundCount]
 	var label:Label = get_node(_labelPath)
 	label.text = "Track these %d bubbles as they move!\nTap to continue..." % _activeBubbleCount
 	_state = State.SHOW_INITIAL
@@ -36,7 +41,7 @@ func _ready() -> void:
 	yield(get_tree().create_timer(0.5), "timeout")
 	for _i in range(_inactiveBubbleCount):
 		SpawnBubble()
-	
+
 	if !OS.is_debug_build() || !Input.is_key_pressed(KEY_SHIFT):
 		yield(get_tree().create_timer(_waitTime), "timeout")
 
@@ -66,10 +71,21 @@ func _ready() -> void:
 
 	yield(self, "_unhandledClick")
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
-	SaveData.Set("minigame_score", correctCount)
-	SaveData.Set("minigame_max_score", _activeBubbleCount)
+	var total1:int = SaveData.Get("minigame_score", 0)
+	var total2:int = SaveData.Get("minigame_max_score", 0)
+	total1 += correctCount
+	total2 += _activeBubbleCount
+	SaveData.Set("minigame_score", total1)
+	SaveData.Set("minigame_max_score", total2)
+
+	if roundNumber < _roundCount - 1:
+		roundNumber += 1
+		SaveData.Set("minigame_round", roundNumber)
+		get_tree().change_scene("res://scenes/minigame-scene.tscn")
+		return
+
 	var scoreHistory:Array = SaveData.Get("score_history", [])
-	scoreHistory.append(float(correctCount) / _activeBubbleCount)
+	scoreHistory.append(float(total1) / total2)
 	SaveData.Set("score_history", scoreHistory)
 	get_tree().change_scene("res://scenes/minigame-results-scene.tscn")
 

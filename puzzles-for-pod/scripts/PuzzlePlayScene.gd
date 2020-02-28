@@ -84,6 +84,9 @@ func OnMinigameButtonPressed() -> void:
 		return
 	_transitioning = true
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
+	SaveData.Set("minigame_round", 0)
+	SaveData.Set("minigame_score", 0)
+	SaveData.Set("minigame_max_score", 0)
 	get_tree().change_scene("res://scenes/minigame-scene.tscn")
 
 func HasAvailablePiece() -> bool:
