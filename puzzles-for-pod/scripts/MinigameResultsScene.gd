@@ -18,14 +18,14 @@ var _transitioning:bool = true
 var _unlockedPieces = []
 
 func _ready() -> void:
-	var score:float = SaveData.Get("minigame_score", 6)
-	var maxScore:float = SaveData.Get("minigame_max_score", 10)
+	var score:float = float(SaveData.Get("minigame_score", 6.0))
+	var maxScore:float = float(SaveData.Get("minigame_max_score", 10.0))
 	DrawGraph()
 
 	var resultLabel:RichTextLabel = get_node(_resultLabelPath)
-	var rounded:int = round(100 * score / maxScore)
+	var rounded:int = round(100.0 * score / maxScore)
 	resultLabel.bbcode_text = "[center]You got\n[color=red]%d%%[/color]\ncorrect![/center]" % rounded
-	var piecesToUnlock:float = lerp(_minPiecesToUnlock, _maxPiecesToUnlock, score / maxScore)
+	var piecesToUnlock:float = lerp(_minPiecesToUnlock, _maxPiecesToUnlock, float(score) / maxScore)
 
 	var puzzleName:String = SaveData.Get("active_puzzle", "1")
 	var data:Dictionary = SaveData.Get(puzzleName, SaveData.EmptyPuzzleData(puzzleName))
