@@ -22,6 +22,9 @@ func StopMotion() -> void:
 	linear_damp = 5
 
 func Highlight() -> void:
+	modulate = Color(1, 1, 0, 1)
+
+func HighlightGotItRight() -> void:
 	modulate = Color(0, 1, 0, 1)
 
 func HighlightWrong() -> void:

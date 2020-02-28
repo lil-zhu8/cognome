@@ -26,6 +26,7 @@ _viewportPath = NodePath("CanvasLayer/MarginContainer/Content/ViewportContainer/
 _labelPath = NodePath("CanvasLayer/MarginContainer/Content/Label")
 _roundLabelPath = NodePath("CanvasLayer/MarginContainer/Content/Label2")
 _bubbleScene = ExtResource( 2 )
+_roundCount = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1

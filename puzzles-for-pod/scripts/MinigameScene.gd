@@ -25,10 +25,12 @@ signal _unhandledClick
 
 func _ready() -> void:
 	var roundNumber:int = SaveData.Get("minigame_round", 0)
+
+	_activeBubbleCount = roundNumber + 1
 	var roundLabel:Label = get_node(_roundLabelPath)
 	roundLabel.text = "Round %d/%d" % [roundNumber + 1, _roundCount]
 	var label:Label = get_node(_labelPath)
-	label.text = "Track these %d bubbles as they move to get more pieces!\nTap to continue..." % _activeBubbleCount
+	label.text = "Track the original bubble(s) to get more pieces!"# % _activeBubbleCount
 	_state = State.SHOW_INITIAL
 	for _i in range(_activeBubbleCount):
 		SpawnBubble()
@@ -36,10 +38,12 @@ func _ready() -> void:
 	yield(ScreenTransitioner.transitionIn(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	_transitioning = false
 
-	yield(self, "_unhandledClick")
+	#yield(self, "_unhandledClick")
+	if !OS.is_debug_build() || !Input.is_key_pressed(KEY_SHIFT):
+		yield(get_tree().create_timer(2.0), "timeout")
 
 	_state = State.SHOW_ALL
-	label.text = "Track the original %d bubbles..." % _activeBubbleCount
+	#label.text = "Track the original %d bubbles..." % _activeBubbleCount
 	yield(get_tree().create_timer(0.5), "timeout")
 	for _i in range(_inactiveBubbleCount):
 		SpawnBubble()
@@ -66,6 +70,7 @@ func _ready() -> void:
 			bubble.HighlightWrong()
 		else:
 			correctCount += 1
+			bubble.HighlightGotItRight()
 
 	for i in _activeBubbleCount:
 		var bubble:Bubble = _bubbles[i]

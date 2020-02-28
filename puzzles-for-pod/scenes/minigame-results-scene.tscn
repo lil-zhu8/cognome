@@ -8,6 +8,7 @@
 script = ExtResource( 2 )
 _puzzlePieceParent = NodePath("CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer/PuzzlePieceParent")
 _resultLabelPath = NodePath("CanvasLayer/MarginContainer/Content/ResultLabel")
+_maxPiecesToUnlock = 6
 _pieceSpacing = 35
 _graphLinePath = NodePath("CanvasLayer/MarginContainer/Content/Graph/ViewportContainer/Viewport/Line2D")
 _graphViewportPath = NodePath("CanvasLayer/MarginContainer/Content/Graph/ViewportContainer/Viewport")
