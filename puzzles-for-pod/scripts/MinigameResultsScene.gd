@@ -29,6 +29,7 @@ func _ready() -> void:
 
 	var puzzleName:String = SaveData.Get("active_puzzle", "1")
 	var data:Dictionary = SaveData.Get(puzzleName, SaveData.EmptyPuzzleData(puzzleName))
+	data = SaveData.EmptyPuzzleData(puzzleName)
 
 	var pieces:Dictionary = data.pieces
 	var unavailablePieces:Array = []
@@ -85,15 +86,19 @@ func SpawnUnlockedPieces() -> void:
 	var rows:int = masks.size() / columns
 	var pieceSize:Vector2 = Vector2(image.get_size().x / columns, image.get_size().y / rows)
 	var container:HBoxContainer = get_node(_puzzlePieceParent)
-	container.set("custom_constants/separation", pieceSize.x + _pieceSpacing)
 
+	var index:int = 0
 	for i in _unlockedPieces:
 		var piece:PuzzlePiece = _puzzlePieceScene.instance()
-		var control:Control = Control.new()
-		control.set_v_size_flags(Control.SIZE_SHRINK_CENTER)
-		container.add_child(control)
-		control.add_child(piece)
+		var control:Control = container.get_child(index)
+		index += 1
+		var control2:Control = Control.new()
+		control.add_child(control2)
+		control2.set_size(Vector2(721, 571))
+		control2.set_scale(Vector2(721.0 * 0.6 / image.get_width(), 571.0 * 0.6 / image.get_height()))
+		control2.add_child(piece)
 		var mask:Texture = masks[int(i)]
+		#var mask:Texture = masks[0]
 		var row:int = int(i) / columns
 		var col:int = int(i) % columns
 		var position:Vector2 = Vector2(col * pieceSize.x, row * pieceSize.y)

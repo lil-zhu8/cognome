@@ -21,8 +21,8 @@ func Init(puzzleData:Dictionary) -> void:
 		ConstructPiece(image, masks[i], pieceSize, position)
 
 	set_scale(Vector2(get_parent().get_size().x / image.get_size().x, get_parent().get_size().y / image.get_size().y))
-	if get_scale() != Vector2.ONE:
-		push_warning("Wrong image aspect ratio, should be " + str(get_parent().get_size().x / get_parent().get_size().y) + " but was " + str(image.get_size().x / image.get_size().y))
+	#if get_scale() != Vector2.ONE:
+		#push_warning("Wrong image aspect ratio, should be " + str(get_parent().get_size().x / get_parent().get_size().y) + " but was " + str(image.get_size().x / image.get_size().y))
 
 	# Randomize sort order
 	for child in get_children():

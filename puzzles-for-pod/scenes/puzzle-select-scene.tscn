@@ -57,32 +57,32 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -593.0
+margin_top = -610.0
 rect_min_size = Vector2( 200, 200 )
-mouse_filter = 2
+rect_clip_content = false
 scroll_vertical_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/MarginContainer/Content/ScrollContainer"]
-margin_right = 300.0
+margin_right = 240.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 100, 100 )
-mouse_filter = 2
 custom_constants/vseparation = 10
 custom_constants/hseparation = 10
-columns = 3
+columns = 6
 
 [node name="ChooseYourOwn" type="Control" parent="CanvasLayer/MarginContainer/Content/ScrollContainer/GridContainer"]
-margin_right = 300.0
+margin_right = 240.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 300, 200 )
+rect_min_size = Vector2( 240, 200 )
 mouse_filter = 2
 
 [node name="Button" type="Button" parent="CanvasLayer/MarginContainer/Content/ScrollContainer/GridContainer/ChooseYourOwn"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 theme = ExtResource( 2 )
 text = "Add Your Own"
 __meta__ = {
