@@ -28,7 +28,7 @@ func _ready() -> void:
 	var roundLabel:Label = get_node(_roundLabelPath)
 	roundLabel.text = "Round %d/%d" % [roundNumber + 1, _roundCount]
 	var label:Label = get_node(_labelPath)
-	label.text = "Track these %d bubbles as they move!\nTap to continue..." % _activeBubbleCount
+	label.text = "Track these %d bubbles as they move to get more pieces!\nTap to continue..." % _activeBubbleCount
 	_state = State.SHOW_INITIAL
 	for _i in range(_activeBubbleCount):
 		SpawnBubble()
