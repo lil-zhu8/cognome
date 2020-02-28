@@ -184,11 +184,12 @@ margin_bottom = 573.0
 
 [node name="PuzzlePreview" type="TextureRect" parent="CanvasLayer/MarginContainer/Content"]
 margin_left = 750.0
-margin_top = 600.0
+margin_top = 590.0
 margin_right = 975.0
-margin_bottom = 700.0
+margin_bottom = 710.0
 texture = ExtResource( 6 )
 expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
