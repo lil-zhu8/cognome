@@ -15,5 +15,10 @@ func _input(event: InputEvent) -> void:
 		get_tree().set_input_as_handled()
 		_transitioning = true
 		yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
-		get_tree().change_scene("res://scenes/puzzle-select-scene.tscn")
+		var seenInstructions:bool = SaveData.Get("seen_instructions", false)
+		SaveData.Set("seen_instructions", true)
+		if !seenInstructions:
+			get_tree().change_scene("res://scenes/instructions-scene.tscn")
+		else:
+			get_tree().change_scene("res://scenes/puzzle-select-scene.tscn")
 	

@@ -81,7 +81,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Puzzles for POD"
-run/main_scene="res://scenes/puzzle-select-scene.tscn"
+run/main_scene="res://scenes/intro-scene.tscn"
 boot_splash/image="res://harmonic-godot/sprites/white-pixel.png"
 boot_splash/bg_color=Color( 1, 1, 1, 1 )
 config/icon="res://publish/icon_1024.png"
