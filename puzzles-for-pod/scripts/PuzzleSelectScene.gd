@@ -3,6 +3,7 @@ extends Node2D
 var _puzzleSelectButtonScene:PackedScene = preload("res://scenes/puzzle-select-button.tscn")
 export var _gridPath:NodePath
 export var _popup:NodePath
+export var _scrollContainerPath:NodePath
 var _transitioning:bool = true
 
 func _ready() -> void:
