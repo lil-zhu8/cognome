@@ -19,16 +19,19 @@ extents = Vector2( 1000, 50 )
 extents = Vector2( 200, 50 )
 
 [node name="MinigameScene" type="Node2D"]
+pause_mode = 2
 script = ExtResource( 1 )
 _bubbleAreaPath = NodePath("CanvasLayer/BubbleSpawnArea")
 _bubbleParentPath = NodePath("CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport/BubbleParent")
 _viewportPath = NodePath("CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport")
 _labelPath = NodePath("CanvasLayer/MarginContainer/Content/Label")
 _roundLabelPath = NodePath("CanvasLayer/MarginContainer/Content/Label2")
+_helpPopupPath = NodePath("CanvasLayer/HelpPopup")
 _bubbleScene = ExtResource( 2 )
 _roundCount = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+pause_mode = 1
 layer = -1
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
@@ -46,6 +49,9 @@ mouse_filter = 2
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BubbleSpawnArea" type="Control" parent="CanvasLayer"]
 anchor_left = 0.146484
@@ -127,7 +133,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="CanvasLayer/MarginContainer/Content/VBoxContainer"]
+[node name="HelpButton" type="Button" parent="CanvasLayer/MarginContainer/Content/VBoxContainer"]
 margin_top = 538.0
 margin_right = 174.0
 margin_bottom = 598.0
@@ -203,4 +209,64 @@ physics_material_override = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/MarginContainer/Content/ViewportContainer/Viewport/BottomRight"]
 shape = SubResource( 4 )
+
+[node name="HelpPopup" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="CanvasLayer/HelpPopup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -150.0
+margin_right = 400.0
+margin_bottom = 150.0
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/HelpPopup/Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -37.0
+margin_top = 16.0
+margin_right = 30.0
+margin_bottom = 61.0
+text = "Help"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CanvasLayer/HelpPopup/Panel"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 25.0
+margin_top = -84.0
+margin_right = -25.0
+margin_bottom = 143.0
+text = "1. Two bubbles will appear, followed by many more.
+2. Keep track of the original bubbles as they move.
+3. When prompted, tap the original bubbles."
+autowrap = true
+
+[node name="Button" type="Button" parent="CanvasLayer/HelpPopup/Panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -75.0
+margin_right = 70.0
+margin_bottom = -25.0
+text = "Back"
+[connection signal="pressed" from="CanvasLayer/MarginContainer/Content/VBoxContainer/HelpButton" to="." method="HelpButtonPressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/Content/VBoxContainer/ExitButton" to="." method="ExitButtonPressed"]

@@ -7,6 +7,7 @@ export var _bubbleParentPath:NodePath
 export var _viewportPath:NodePath
 export var _labelPath:NodePath
 export var _roundLabelPath:NodePath
+export var _helpPopupPath:NodePath
 export var _bubbleScene:PackedScene
 export var _activeBubbleCount:int = 2
 export var _inactiveBubbleCount:int = 12
@@ -22,6 +23,7 @@ var _transitioning = true
 
 signal _bubbleClicked
 signal _unhandledClick
+signal _click
 
 func _ready() -> void:
 	var roundNumber:int = SaveData.Get("minigame_round", 0)
@@ -137,6 +139,8 @@ func _input(event:InputEvent) -> void:
 	var viewport:Viewport = get_node(_viewportPath)
 	var viewportContainer:ViewportContainer = viewport.get_parent()
 	var clickEvent:InputEventMouseButton = event as InputEventMouseButton
+	if clickEvent != null && clickEvent.pressed:
+		emit_signal("_click")
 	if clickEvent != null && clickEvent.pressed && _state == State.CLICK:
 		var intersections:Array = viewport.world_2d.direct_space_state.intersect_point(
 			get_global_mouse_position() - viewportContainer.get_global_position()
@@ -159,3 +163,13 @@ func ExitButtonPressed() -> void:
 	_transitioning = true
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
+
+func HelpButtonPressed() -> void:
+	if _transitioning:
+		return
+	get_tree().paused = true
+	var helpPopup:ColorRect = get_node(_helpPopupPath)
+	helpPopup.visible = true
+	yield(self, "_click")
+	get_tree().paused = false
+	helpPopup.visible = false
