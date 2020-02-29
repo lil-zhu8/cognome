@@ -90,7 +90,13 @@ func OnMinigameButtonPressed() -> void:
 	SaveData.Set("minigame_round", 0)
 	SaveData.Set("minigame_score", 0)
 	SaveData.Set("minigame_max_score", 0)
-	get_tree().change_scene("res://scenes/minigame-scene.tscn")
+	
+	var seenInstructions:bool = SaveData.Get("seen_minigame_instructions", false)
+	SaveData.Set("seen_minigame_instructions", true)
+	if !seenInstructions:
+		get_tree().change_scene("res://scenes/minigame-instructions-scene.tscn")
+	else:
+		get_tree().change_scene("res://scenes/minigame-scene.tscn")
 
 func HasAvailablePiece() -> bool:
 	for p in _puzzle.Pieces:
