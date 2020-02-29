@@ -99,9 +99,30 @@ func HasAvailablePiece() -> bool:
 			return true
 	return false
 
+func HasUnavailablePiece() -> bool:
+	for p in _puzzle.Pieces:
+		var piece:PuzzlePiece = p
+		if !piece.IsAvailable():
+			return true
+	return false
+
 func _process(_delta:float) -> void:
 	var button:GlowingButton = get_node(_minigameButtonPath)
 	button.Enabled = !HasAvailablePiece()
+	button.disabled = !HasUnavailablePiece()
+
+	if _transitioning:
+		return
+
+	for p in _puzzle.Pieces:
+		var piece:PuzzlePiece = p
+		if !piece.IsLocked():
+			return
+
+	_transitioning = true
+	yield(get_tree().create_timer(1.0), "timeout")
+	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
+	get_tree().change_scene("res://scenes/congrats-scene.tscn")
 
 func ResetPuzzle() -> void:
 	_puzzle.Reset()
