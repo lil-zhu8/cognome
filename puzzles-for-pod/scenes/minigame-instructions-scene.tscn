@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ui-theme.tres" type="Theme" id=1]
+[ext_resource path="res://fonts/nunito-font-medium.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scripts/InstructionsScene.gd" type="Script" id=3]
+
+[node name="MinigameInstructionsScene" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -384.0
+margin_right = 512.0
+margin_bottom = 384.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="Control" parent="ColorRect/MarginContainer"]
+margin_right = 1024.0
+margin_bottom = 768.0
+
+[node name="Label" type="Label" parent="ColorRect/MarginContainer/Content"]
+anchor_right = 1.0
+margin_top = 70.0
+margin_bottom = 169.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Bubble-Mania! Minigame"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ColorRect/MarginContainer/Content"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 100.0
+margin_top = -170.0
+margin_right = -100.0
+margin_bottom = 118.0
+theme = ExtResource( 1 )
+text = "1. A small number of bubbles will appear, followed by many more.
+2. Keep track of the original bubbles as they move.
+3. When prompted, tap the original bubbles."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="ColorRect/MarginContainer/Content"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -200.0
+margin_top = -230.142
+margin_right = 200.0
+margin_bottom = -130.142
+theme = ExtResource( 1 )
+text = "Start Minigame"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="ColorRect/MarginContainer/Content/Button" to="." method="OnButtonPressed"]
