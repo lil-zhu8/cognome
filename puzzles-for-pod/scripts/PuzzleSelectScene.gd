@@ -3,6 +3,7 @@ extends Node2D
 var _puzzleSelectButtonScene:PackedScene = preload("res://scenes/puzzle-select-button.tscn")
 export var _gridPath:NodePath
 export var _popup:NodePath
+export var _completedPopup:NodePath
 export var _scrollContainerPath:NodePath
 var _transitioning:bool = true
 
@@ -25,6 +26,11 @@ func OnButtonPressed(puzzle:String) -> void:
 		ShowPopup()
 		return
 	SaveData.Set("active_puzzle", puzzle)
+	var progress:float = SaveData.GetProgress(puzzle)
+	if progress >= 1.0:
+		ShowCompletedPopup()
+		return
+
 	_transitioning = true
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
@@ -38,3 +44,21 @@ func ShowPopup() -> void:
 		yield(get_tree(), "idle_frame")
 	popup.visible = false
 
+func ShowCompletedPopup() -> void:
+	var popup:ColorRect = get_node(_completedPopup)
+	popup.visible = true
+
+func CompletedOkPressed() -> void:
+	if _transitioning:
+		return
+	var puzzle:String = SaveData.Get("active_puzzle", "1")
+	SaveData.Set(puzzle, SaveData.EmptyPuzzleData(puzzle))
+	_transitioning = true
+	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
+	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
+
+func CompletedCancelPressed() -> void:
+	if _transitioning:
+		return
+	var popup:ColorRect = get_node(_completedPopup)
+	popup.visible = false
