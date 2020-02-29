@@ -5,11 +5,14 @@ export var _puzzleParentPath:NodePath
 export var _puzzlePreviewPath:NodePath
 export var _unusedPositionPath:NodePath
 export var _minigameButtonPath:NodePath
+export var _helpPopupPath:NodePath
 
 var _activePiece:PuzzlePiece = null
 var _dragOffset:Vector2
 var _puzzle:Puzzle
 var _transitioning:bool = true
+
+signal _unhandledClick
 
 func _ready():
 	var activePuzzle = SaveData.Get("active_puzzle", "1")
@@ -113,3 +116,16 @@ func OnMorePuzzlesButtonPressed() -> void:
 	_transitioning = true
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-select-scene.tscn")
+
+func OnHelpButtonPressed() -> void:
+	if _transitioning:
+		return
+	var helpPopup:ColorRect = get_node(_helpPopupPath)
+	helpPopup.visible = true
+	yield(self, "_unhandledClick")
+	helpPopup.visible = false
+
+func _input(event: InputEvent) -> void:
+	var clickEvent:InputEventMouseButton = event as InputEventMouseButton
+	if clickEvent != null && clickEvent.pressed:
+		emit_signal("_unhandledClick")

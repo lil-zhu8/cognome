@@ -36,6 +36,7 @@ _puzzleParentPath = NodePath("CanvasLayer/MarginContainer/Content/PuzzleBackgrou
 _puzzlePreviewPath = NodePath("CanvasLayer/MarginContainer/Content/PuzzlePreview")
 _unusedPositionPath = NodePath("CanvasLayer/MarginContainer/Content/UnusedPiecesBackground/UnusedPiecesPosition")
 _minigameButtonPath = NodePath("CanvasLayer/MarginContainer/Content/UnusedPiecesBackground/MinigameButton")
+_helpPopupPath = NodePath("CanvasLayer/HelpPopup")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -194,5 +195,58 @@ stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HelpPopup" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="CanvasLayer/HelpPopup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -200.0
+margin_right = 400.0
+margin_bottom = 200.0
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/HelpPopup/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 25.0
+margin_top = 91.0
+margin_right = -25.0
+margin_bottom = -59.0
+text = "1. Drag the puzzle pieces available from the unused box to the correct locations on the puzzle.
+2. When you run out of pieces, play a fun, quick minigame to get more."
+autowrap = true
+
+[node name="Label2" type="Label" parent="CanvasLayer/HelpPopup/Panel"]
+anchor_right = 1.0
+margin_top = 16.0
+margin_bottom = 61.0
+text = "Help"
+align = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/HelpPopup/Panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -70.0
+margin_right = 100.0
+margin_bottom = -23.0
+text = "Back"
+[connection signal="pressed" from="CanvasLayer/MarginContainer/Content/HelpButton" to="." method="OnHelpButtonPressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/Content/MorePuzzlesButton" to="." method="OnMorePuzzlesButtonPressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/Content/UnusedPiecesBackground/MinigameButton" to="." method="OnMinigameButtonPressed"]
