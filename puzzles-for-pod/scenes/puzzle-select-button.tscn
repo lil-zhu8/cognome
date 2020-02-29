@@ -34,7 +34,7 @@ __meta__ = {
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 margin_right = 240.0
-margin_bottom = 176.0
+margin_bottom = 186.0
 mouse_filter = 2
 size_flags_vertical = 3
 texture = ExtResource( 1 )
@@ -59,10 +59,10 @@ __meta__ = {
 }
 
 [node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
-margin_top = 180.0
+margin_top = 190.0
 margin_right = 240.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 0, 20 )
+rect_min_size = Vector2( 0, 10 )
 mouse_filter = 2
 theme = ExtResource( 2 )
 max_value = 1.0
