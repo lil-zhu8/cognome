@@ -29,9 +29,9 @@ signal _unhandledClick
 signal _click
 
 func _ready() -> void:
+	print("foo")
 	_roundNumber = SaveData.Get("minigame_round", 0)
-	analytics.add_to_event_queue(analytics.get_progression_event("Start:Minigame:Round%d" % _roundNumber))
-	analytics.submit_events()
+	analytics.add_to_event_queue(analytics.get_progression_event("Start:Minigame:Round%d" % (_roundNumber + 1)))
 
 	_activeBubbleCount = _roundNumber + 1
 	var roundLabel:Label = get_node(_roundLabelPath)
@@ -89,8 +89,7 @@ func _ready() -> void:
 		return
 	_transitioning = true
 
-	analytics.add_to_event_queue(analytics.get_progression_event("Complete:Minigame:Round%d" % _roundNumber, correctCount))
-	analytics.submit_events()
+	analytics.add_to_event_queue(analytics.get_progression_event("Complete:Minigame:Round%d" % (_roundNumber + 1), correctCount))
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	var total1:int = SaveData.Get("minigame_score", 0)
 	var total2:int = SaveData.Get("minigame_max_score", 0)
@@ -167,8 +166,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func ExitButtonPressed() -> void:
 	if _transitioning:
 		return
-	analytics.add_to_event_queue(analytics.get_progression_event("Fail:Minigame:Round%d" % _roundNumber))
-	analytics.submit_events()
+	analytics.add_to_event_queue(analytics.get_progression_event("Fail:Minigame:Round%d" % (_roundNumber + 1)))
 	_transitioning = true
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")

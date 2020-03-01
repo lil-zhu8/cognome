@@ -29,6 +29,8 @@ extends Node
 const UUID = preload("res://analytics/uuid.gd")
 const DEBUG = true
 
+var _eventsBeingSubmitted = []
+
 var uuid = UUID.v4()
 
 # GameAnalytics is picky about platform, so we have to modify this a lot
@@ -112,6 +114,39 @@ func _process(delta):
 	elif connect_info.connecting:
 		Doconnect()
 
+	if state_config['event_queue'].size() > 0 && !connect_info.connecting:
+		print("starting up a new one")
+
+		print(state_config['event_queue'])
+		_eventsBeingSubmitted = state_config['event_queue']
+		var event_list_json = to_json(_eventsBeingSubmitted)
+		state_config['event_queue'] = []
+		var f = File.new()
+		# save to file
+		f.open("user://event_queue", File.WRITE)
+		f.store_var(state_config['event_queue'])
+		f.close()
+			#print("should be empty??")
+		#print(state_config['event_queue'])
+		# Refreshing url_events since game key might have been changed externally
+		url_events = "/v2/" + game_key + "/events"
+		print('submitting events')
+		print(event_list_json)
+
+		# create headers with authentication hash
+		var headers = [
+			"Authorization: " +  Marshalls.raw_to_base64(hmac_sha256(event_list_json, secret_key)),
+			"Content-Type: application/json"]
+
+		connect_info = {
+			'connecting': true,
+			'url': url_events,
+			'headers': headers,
+			'json': event_list_json,
+			'callback': 'submit_callback'
+		}
+
+
 # adding an event to the queue for later submit
 func add_to_event_queue(event_dict):
 	# load saved events, if any
@@ -138,7 +173,6 @@ func _ready() -> void:
 	set_key('session_num', sessionNum)
 	request_init()
 	add_to_event_queue(get_user_event())
-	submit_events()
 
 func Doconnect():
 	var status = requests.get_status()
@@ -264,33 +298,11 @@ func init_callback():
 	return status_code
 
 
-# submitting all events that are in the queue to the events URL
-func submit_events():
-	# Refreshing url_events since game key might have been changed externally
-	url_events = "/v2/" + game_key + "/events"
-	var event_list_json = to_json(state_config['event_queue'])
-	print('submitting events')
-	print(event_list_json)
-
-	# create headers with authentication hash
-	var headers = [
-		"Authorization: " +  Marshalls.raw_to_base64(hmac_sha256(event_list_json, secret_key)),
-		"Content-Type: application/json"]
-
-	connect_info = {
-		'connecting': true,
-		'url': url_events,
-		'headers': headers,
-		'json': event_list_json,
-		'callback': 'submit_callback'
-	}
-
 func _notification(what):
 	# overwriting the default quit behavior, in order to submit final events
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		add_to_event_queue(get_session_end_event(OS.get_ticks_msec() / 1000))
 		game_end = true
-		submit_events()
 
 
 func submit_callback():
@@ -340,11 +352,11 @@ func submit_callback():
 		post_to_log("Submit events failed due to BAD_REQUEST.")
 		# If bad request, then some parameter is very wrong. Eliminating queue in order to no hold submission
 		# In future instances where the bad parameter is no longer existing
-		state_config['event_queue'] = []
+		#state_config['event_queue'] = []
 		var dir = Directory.new()
 		dir.remove("user://event_queue")
-
 	elif status_code != 200:
+		state_config['event_queue'] = _eventsBeingSubmitted + state_config['event_queue']
 		post_to_log(status_code_string)
 		post_to_log("Submit events request did not succeed! Perhaps offline.. ")
 
@@ -352,15 +364,20 @@ func submit_callback():
 		post_to_log("Events submitted !")
 		# clear event queue
 		# If submitte successfully, then clear queue and remove queu file to not create duplicate entries
-		state_config['event_queue'] = []
+		#state_config['event_queue'] = []
 		var dir = Directory.new()
 		dir.remove("user://event_queue")
-
 	else:
+		state_config['event_queue'] = _eventsBeingSubmitted + state_config['event_queue']
 		post_to_log("Event submission FAILED!")
 
 	if game_end and get_tree():
 		get_tree().quit()
+
+	#print("should be empty?222?")
+	#print(state_config['event_queue'])
+	#print("event queue is now")
+	#print(state_config['event_queue'])
 	return status_code
 
 
