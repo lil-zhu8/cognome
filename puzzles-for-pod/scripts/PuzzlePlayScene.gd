@@ -16,6 +16,8 @@ signal _unhandledClick
 
 func _ready():
 	var activePuzzle = SaveData.Get("active_puzzle", "1")
+	analytics.add_to_event_queue(analytics.get_progression_event("Start:Puzzle:%s" % activePuzzle))
+	analytics.submit_events()
 	var puzzleData:Dictionary = PuzzleData.PUZZLES[activePuzzle]
 	_puzzle = Puzzle.new()
 	get_node(_puzzleParentPath).add_child(_puzzle)
@@ -125,6 +127,9 @@ func _process(_delta:float) -> void:
 		if !piece.IsLocked():
 			return
 
+	var activePuzzle = SaveData.Get("active_puzzle", "1")
+	analytics.add_to_event_queue(analytics.get_progression_event("Complete:Puzzle:%s" % activePuzzle))
+	analytics.submit_events()
 	_transitioning = true
 	yield(get_tree().create_timer(1.0), "timeout")
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")

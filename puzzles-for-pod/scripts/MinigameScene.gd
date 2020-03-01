@@ -16,21 +16,26 @@ export var _minSpeed:float = 50.0
 export var _maxSpeed:float = 100.0
 export var _roundCount:int = 5
 
+const UUID = preload("res://analytics/uuid.gd")
+
 var _bubbles = []
 var _state
 var _clickedBubbles = []
 var _transitioning = true
+var _roundNumber:int = 0
 
 signal _bubbleClicked
 signal _unhandledClick
 signal _click
 
 func _ready() -> void:
-	var roundNumber:int = SaveData.Get("minigame_round", 0)
+	_roundNumber = SaveData.Get("minigame_round", 0)
+	analytics.add_to_event_queue(analytics.get_progression_event("Start:Minigame:Round%d" % _roundNumber))
+	analytics.submit_events()
 
-	_activeBubbleCount = roundNumber + 1
+	_activeBubbleCount = _roundNumber + 1
 	var roundLabel:Label = get_node(_roundLabelPath)
-	roundLabel.text = "Round %d/%d" % [roundNumber + 1, _roundCount]
+	roundLabel.text = "Round %d/%d" % [_roundNumber + 1, _roundCount]
 	var label:Label = get_node(_labelPath)
 	label.text = "Track the original bubble(s) to get more pieces!"# % _activeBubbleCount
 	_state = State.SHOW_INITIAL
@@ -84,6 +89,8 @@ func _ready() -> void:
 		return
 	_transitioning = true
 
+	analytics.add_to_event_queue(analytics.get_progression_event("Complete:Minigame:Round%d" % _roundNumber, correctCount))
+	analytics.submit_events()
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	var total1:int = SaveData.Get("minigame_score", 0)
 	var total2:int = SaveData.Get("minigame_max_score", 0)
@@ -92,9 +99,9 @@ func _ready() -> void:
 	SaveData.Set("minigame_score", total1)
 	SaveData.Set("minigame_max_score", total2)
 
-	if roundNumber < _roundCount - 1:
-		roundNumber += 1
-		SaveData.Set("minigame_round", roundNumber)
+	if _roundNumber < _roundCount - 1:
+		_roundNumber += 1
+		SaveData.Set("minigame_round", _roundNumber)
 		get_tree().change_scene("res://scenes/minigame-scene.tscn")
 		return
 
@@ -160,6 +167,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func ExitButtonPressed() -> void:
 	if _transitioning:
 		return
+	analytics.add_to_event_queue(analytics.get_progression_event("Fail:Minigame:Round%d" % _roundNumber))
+	analytics.submit_events()
 	_transitioning = true
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
