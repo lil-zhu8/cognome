@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui-theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/MinigameResultsScene.gd" type="Script" id=2]
 [ext_resource path="res://fonts/nunito-font-small.tres" type="DynamicFont" id=3]
+[ext_resource path="res://sprites/background.jpg" type="Texture" id=4]
 
 [node name="MinigameResultsScene" type="Node2D"]
 script = ExtResource( 2 )
@@ -15,12 +16,12 @@ _graphViewportPath = NodePath("CanvasLayer/MarginContainer/Content/Graph/Viewpor
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 7
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchor_left = 0.5

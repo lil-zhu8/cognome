@@ -1,21 +1,22 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui-theme.tres" type="Theme" id=1]
 [ext_resource path="res://fonts/nunito-font-large.tres" type="DynamicFont" id=2]
 [ext_resource path="res://scripts/GlowingControl.gd" type="Script" id=3]
 [ext_resource path="res://scripts/IntroScene.gd" type="Script" id=4]
+[ext_resource path="res://sprites/background.jpg" type="Texture" id=5]
 
 [node name="IntroScene" type="Node2D"]
 script = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 7
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 anchor_left = 0.5
