@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bubble_show.wav-e865dd62693498c37d041be407b4cd31.sample"
+
+[deps]
+
+source_file="res://sfx/bubble_show.wav"
+dest_files=[ "res://.import/bubble_show.wav-e865dd62693498c37d041be407b4cd31.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

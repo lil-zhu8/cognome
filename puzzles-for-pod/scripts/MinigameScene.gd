@@ -17,6 +17,11 @@ export var _maxSpeed:float = 100.0
 export var _roundCount:int = 5
 
 const UUID = preload("res://analytics/uuid.gd")
+var _showSound:AudioStream = preload("res://sfx/bubble_show.wav")
+var _selectSound:AudioStream = preload("res://sfx/bubble_select.wav")
+var _popupSound:AudioStream = preload("res://sfx/popup.wav")
+var _confirm:AudioStream = preload("res://sfx/confirm.wav")
+var _confirmDown:AudioStream = preload("res://sfx/confirm_down.wav")
 
 var _bubbles = []
 var _state
@@ -67,6 +72,10 @@ func _ready() -> void:
 		if !_clickedBubbles.has(clickedBubble):
 			_clickedBubbles.append(clickedBubble)
 			clickedBubble.Highlight()
+			AudioPlayer.playSound(_selectSound)
+
+	yield(get_tree().create_timer(0.6), "timeout")
+	AudioPlayer.playSound(_showSound)
 
 	_state = State.ANSWER
 	label.text = "Correct answer:\nTap to continue..."
@@ -89,6 +98,10 @@ func _ready() -> void:
 	_transitioning = true
 
 	analytics.add_to_event_queue(analytics.get_progression_event("Complete:Minigame:Round%d" % (_roundNumber + 1), correctCount))
+	if _roundNumber < _roundCount - 1:
+		AudioPlayer.playSound(_confirmDown)
+	else:
+		AudioPlayer.playSound(_confirm)
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	var total1:int = SaveData.Get("minigame_score", 0)
 	var total2:int = SaveData.Get("minigame_max_score", 0)
@@ -123,8 +136,10 @@ func SpawnBubble() -> void:
 		x = rand_range(0, viewport.size.x)
 		y = rand_range(0, viewport.size.y)
 		var query:Physics2DShapeQueryParameters = Physics2DShapeQueryParameters.new()
+		var collisionShape:CircleShape2D = bubble.CollisionShape()
+		query.set_shape(collisionShape)
+
 		query.transform = Transform2D.IDENTITY.translated(Vector2(x, y))
-		query.set_shape(bubble.CollisionShape())
 		var intersections:Array = viewport.world_2d.direct_space_state.intersect_shape(query)
 		if intersections.size() <= 0:
 			break
@@ -167,15 +182,18 @@ func ExitButtonPressed() -> void:
 		return
 	analytics.add_to_event_queue(analytics.get_progression_event("Fail:Minigame:Round%d" % (_roundNumber + 1)))
 	_transitioning = true
+	AudioPlayer.playSound(_confirmDown)
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
 
 func HelpButtonPressed() -> void:
 	if _transitioning:
 		return
+	AudioPlayer.playSound(_popupSound)
 	get_tree().paused = true
 	var helpPopup:ColorRect = get_node(_helpPopupPath)
 	helpPopup.visible = true
 	yield(self, "_click")
+	AudioPlayer.playSound(_popupSound)
 	get_tree().paused = false
 	helpPopup.visible = false

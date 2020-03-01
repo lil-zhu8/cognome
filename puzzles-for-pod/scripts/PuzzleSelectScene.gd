@@ -1,6 +1,8 @@
 extends Node2D
 
+var _confirm:AudioStream = preload("res://sfx/confirm.wav")
 var _puzzleSelectButtonScene:PackedScene = preload("res://scenes/puzzle-select-button.tscn")
+var _popupSound:AudioStream = preload("res://sfx/popup.wav")
 export var _gridPath:NodePath
 export var _popup:NodePath
 export var _completedPopup:NodePath
@@ -32,19 +34,23 @@ func OnButtonPressed(puzzle:String) -> void:
 		return
 
 	_transitioning = true
+	AudioPlayer.playSound(_confirm)
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
 
 func ShowPopup() -> void:
 	var popup:ColorRect = get_node(_popup)
 	popup.visible = true
+	AudioPlayer.playSound(_popupSound)
 	var dialog:AcceptDialog = popup.get_node("AcceptDialog")
 	dialog.popup()
 	while dialog.visible:
 		yield(get_tree(), "idle_frame")
+	AudioPlayer.playSound(_popupSound)
 	popup.visible = false
 
 func ShowCompletedPopup() -> void:
+	AudioPlayer.playSound(_popupSound)
 	var popup:ColorRect = get_node(_completedPopup)
 	popup.visible = true
 
@@ -54,11 +60,13 @@ func CompletedOkPressed() -> void:
 	var puzzle:String = SaveData.Get("active_puzzle", "1")
 	SaveData.Set(puzzle, SaveData.EmptyPuzzleData(puzzle))
 	_transitioning = true
+	AudioPlayer.playSound(_confirm)
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
 
 func CompletedCancelPressed() -> void:
 	if _transitioning:
 		return
+	AudioPlayer.playSound(_popupSound)
 	var popup:ColorRect = get_node(_completedPopup)
 	popup.visible = false

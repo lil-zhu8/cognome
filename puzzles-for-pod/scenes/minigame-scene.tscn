@@ -28,6 +28,11 @@ _labelPath = NodePath("CanvasLayer/MarginContainer/Content/Label")
 _roundLabelPath = NodePath("CanvasLayer/MarginContainer/Content/Label2")
 _helpPopupPath = NodePath("CanvasLayer/HelpPopup")
 _bubbleScene = ExtResource( 2 )
+_activeBubbleCount = null
+_inactiveBubbleCount = null
+_waitTime = null
+_minSpeed = null
+_maxSpeed = null
 _roundCount = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -70,6 +75,7 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/BubbleSpawnArea"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 color = Color( 0, 0, 0, 0.12549 )
 __meta__ = {
 "_edit_use_anchors_": false

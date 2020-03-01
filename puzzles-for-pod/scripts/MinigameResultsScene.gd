@@ -1,5 +1,7 @@
 extends Node2D
 
+var _confirmDown:AudioStream = preload("res://sfx/confirm_down.wav")
+
 const _puzzlePieceScene:PackedScene = preload("res://scenes/puzzle-piece.tscn")
 const _whitePixel:Texture = preload("res://harmonic-godot/sprites/white-pixel.png")
 export var _viewportMargin:int = 10
@@ -109,6 +111,7 @@ func OnResumeButtonPressed() -> void:
 	if _transitioning:
 		return
 	_transitioning = true
+	AudioPlayer.playSound(_confirmDown)
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
 

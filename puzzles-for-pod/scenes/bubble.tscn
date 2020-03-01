@@ -11,6 +11,8 @@ radius = 36.0
 [node name="Bubble" type="RigidBody2D"]
 physics_material_override = ExtResource( 1 )
 gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
 linear_damp = 0.0
 angular_damp = 128.0
 script = ExtResource( 2 )

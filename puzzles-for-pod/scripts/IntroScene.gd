@@ -1,5 +1,7 @@
 extends Node2D
 
+var _confirm:AudioStream = preload("res://sfx/confirm.wav")
+
 var _transitioning:bool = true
 
 func _ready() -> void:
@@ -13,6 +15,7 @@ func _input(event: InputEvent) -> void:
 	var mouse:InputEventMouseButton = event as InputEventMouseButton
 	if mouse != null && mouse.pressed:
 		get_tree().set_input_as_handled()
+		AudioPlayer.playSound(_confirm)
 		_transitioning = true
 		yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
 		var seenInstructions:bool = SaveData.Get("seen_instructions", false)
