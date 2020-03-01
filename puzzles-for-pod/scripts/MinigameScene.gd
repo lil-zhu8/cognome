@@ -29,7 +29,6 @@ signal _unhandledClick
 signal _click
 
 func _ready() -> void:
-	print("foo")
 	_roundNumber = SaveData.Get("minigame_round", 0)
 	analytics.add_to_event_queue(analytics.get_progression_event("Start:Minigame:Round%d" % (_roundNumber + 1)))
 

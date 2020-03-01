@@ -27,7 +27,7 @@ extends Node
 
 # From https://github.com/xsellier/godot-uuid
 const UUID = preload("res://analytics/uuid.gd")
-const DEBUG = true
+const DEBUG = false
 
 var _eventsBeingSubmitted = []
 
@@ -45,18 +45,26 @@ var manufacturer = OS.get_name().to_lower()
 var build_version = 'alpha 0.0.1'
 var engine_version = 'godot 3.0.2'
 
-# sandbox
-var game_key = "5c6bcb5402204249437fb5a7a80a4959"
-var secret_key = "16813a12f718bc5c620f56944e1abc3ea13ccbac"
-var base_url = "http://sandbox-api.gameanalytics.com"
+func game_key():
+	if OS.is_debug_build():
+		return "5c6bcb5402204249437fb5a7a80a4959"
+	else:
+		return "4fb68003a9b1e36d5ad909cbaf78b163"
 
-# real
-#var game_key = "4fb68003a9b1e36d5ad909cbaf78b163"
-#var secret_key = "76da6fe4011e8af9b895d4ecec24f3275bfcad6a"
-#var base_url = "http://api.gameanalytics.com"
+func secret_key():
+	if OS.is_debug_build():
+		return "16813a12f718bc5c620f56944e1abc3ea13ccbac"
+	else:
+		return "76da6fe4011e8af9b895d4ecec24f3275bfcad6a"
 
-var url_init = "/v2/" + game_key + "/init"
-var url_events = "/v2/" + game_key + "/events"
+func base_url():
+	if OS.is_debug_build():
+		return "http://sandbox-api.gameanalytics.com"
+	else:
+		return "http://api.gameanalytics.com"
+
+var url_init = "/v2/" + game_key() + "/init"
+var url_events = "/v2/" + game_key() + "/events"
 
 # settings
 var use_gzip = false
@@ -115,9 +123,6 @@ func _process(delta):
 		Doconnect()
 
 	if state_config['event_queue'].size() > 0 && !connect_info.connecting:
-		print("starting up a new one")
-
-		print(state_config['event_queue'])
 		_eventsBeingSubmitted = state_config['event_queue']
 		var event_list_json = to_json(_eventsBeingSubmitted)
 		state_config['event_queue'] = []
@@ -129,13 +134,14 @@ func _process(delta):
 			#print("should be empty??")
 		#print(state_config['event_queue'])
 		# Refreshing url_events since game key might have been changed externally
-		url_events = "/v2/" + game_key + "/events"
-		print('submitting events')
-		print(event_list_json)
+		url_events = "/v2/" + game_key() + "/events"
+		if DEBUG:
+			print('submitting events')
+			print(event_list_json)
 
 		# create headers with authentication hash
 		var headers = [
-			"Authorization: " +  Marshalls.raw_to_base64(hmac_sha256(event_list_json, secret_key)),
+			"Authorization: " +  Marshalls.raw_to_base64(hmac_sha256(event_list_json, secret_key())),
 			"Content-Type: application/json"]
 
 		connect_info = {
@@ -178,16 +184,18 @@ func Doconnect():
 	var status = requests.get_status()
 	if _event_timer <= 0:
 		if status == HTTPClient.STATUS_DISCONNECTED:
-			var err = requests.connect_to_host(base_url, 80)
+			var err = requests.connect_to_host(base_url(), 80)
 		elif status == HTTPClient.STATUS_CONNECTING or status == HTTPClient.STATUS_RESOLVING:
 			requests.poll()
-			print('Connecting')
+			if DEBUG:
+				print('Connecting')
 			_event_timer = _event_delay
 		elif status == HTTPClient.STATUS_CONNECTED:
 			requests.request(HTTPClient.METHOD_POST, connect_info.url, connect_info.headers, connect_info.json)
 		elif status == HTTPClient.STATUS_REQUESTING:
 			requests.poll()
-			print("Requesting...")
+			if DEBUG:
+				print("Requesting...")
 			_event_timer = _event_delay
 		else:
 			call(connect_info.callback)
@@ -217,22 +225,23 @@ func request_init():
 	generate_new_session_id()
 
 	# Refreshing url_init since game key might have been changed externally
-	url_init = "/v2/" + game_key + "/init"
+	url_init = "/v2/" + game_key() + "/init"
 	var init_payload_json = to_json(init_payload)
 
 	var headers = [
-		"Authorization: " + Marshalls.raw_to_base64(hmac_sha256(init_payload_json, secret_key)),
+		"Authorization: " + Marshalls.raw_to_base64(hmac_sha256(init_payload_json, secret_key())),
 		"Content-Type: application/json"]
-	print(Marshalls.raw_to_base64(hmac_sha256(init_payload_json, secret_key)))
+	if DEBUG:
+		print(Marshalls.raw_to_base64(hmac_sha256(init_payload_json, secret_key())))
 
 	var response_dict
 	var status_code
 
 	if DEBUG:
-		print(base_url)
+		print(base_url())
 		print(url_init)
 		print(init_payload_json)
-		print(Marshalls.raw_to_base64(hmac_sha256(init_payload_json, secret_key)))
+		print(Marshalls.raw_to_base64(hmac_sha256(init_payload_json, secret_key())))
 
 
 	connect_info = {
@@ -249,18 +258,21 @@ func init_callback():
 	if requests.has_response():
 		# If there is a response..
 		var headers = requests.get_response_headers_as_dictionary() # Get response headers
-		print("code: ", requests.get_response_code()) # Show response code
-		print("**headers:\\n", headers) # Show headers
+		if DEBUG:
+			print("code: ", requests.get_response_code()) # Show response code
+			print("**headers:\\n", headers) # Show headers
 
 		# Getting the HTTP Body
 
 		if requests.is_response_chunked():
 			# Does it use chunks?
-			print("Response is Chunked!")
+			if DEBUG:
+				print("Response is Chunked!")
 		else:
 			# Or just plain Content-Length
 			var bl = requests.get_response_body_length()
-			print("Response Length: ",bl)
+			if DEBUG:
+				print("Response Length: ",bl)
 
 		# This method works for both anyway
 
@@ -278,9 +290,11 @@ func init_callback():
 
 		# Done!
 
-		print("bytes got: ", rb.size())
+		if DEBUG:
+			print("bytes got: ", rb.size())
 		text = rb.get_string_from_ascii()
-		print("Text: ", text)
+		if DEBUG:
+			print("Text: ", text)
 
 	var status_code = requests.get_response_code()
 	var response_dict = to_json(text)
@@ -310,18 +324,21 @@ func submit_callback():
 	if requests.has_response():
 		# If there is a response..
 		var headers = requests.get_response_headers_as_dictionary() # Get response headers
-		print("code: ", requests.get_response_code()) # Show response code
-		print("**headers:\\n", headers) # Show headers
+		if DEBUG:
+			print("code: ", requests.get_response_code()) # Show response code
+			print("**headers:\\n", headers) # Show headers
 
 		# Getting the HTTP Body
 
 		if requests.is_response_chunked():
 			# Does it use chunks?
-			print("Response is Chunked!")
+			if DEBUG:
+				print("Response is Chunked!")
 		else:
 			# Or just plain Content-Length
 			var bl = requests.get_response_body_length()
-			print("Response Length: ",bl)
+			if DEBUG:
+				print("Response Length: ",bl)
 
 		# This method works for both anyway
 
@@ -339,9 +356,11 @@ func submit_callback():
 
 		# Done!
 
-		print("bytes got: ", rb.size())
+		if DEBUG:
+			print("bytes got: ", rb.size())
 		text = rb.get_string_from_ascii()
-		print("Text: ", text)
+		if DEBUG:
+			print("Text: ", text)
 
 	var status_code = requests.get_response_code()
 
@@ -532,10 +551,12 @@ func annotate_event_with_default_values():
 
 
 func post_to_log(message):
-	print(message)
+	if DEBUG:
+		print(message)
 
 func print_verbose(message):
-	print(message)
+	if DEBUG:
+		print(message)
 
 
 
