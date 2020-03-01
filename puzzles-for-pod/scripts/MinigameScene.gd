@@ -184,7 +184,8 @@ func ExitButtonPressed() -> void:
 	_transitioning = true
 	AudioPlayer.playSound(_confirmDown)
 	yield(ScreenTransitioner.transitionOut(1.0, ScreenTransitioner.DIAMONDS), "completed")
-	get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
+	get_tree().change_scene("res://scenes/dummy-scene.tscn")
+	#get_tree().change_scene("res://scenes/puzzle-play-scene.tscn")
 
 func HelpButtonPressed() -> void:
 	if _transitioning:

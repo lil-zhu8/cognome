@@ -28,11 +28,6 @@ _labelPath = NodePath("CanvasLayer/MarginContainer/Content/Label")
 _roundLabelPath = NodePath("CanvasLayer/MarginContainer/Content/Label2")
 _helpPopupPath = NodePath("CanvasLayer/HelpPopup")
 _bubbleScene = ExtResource( 2 )
-_activeBubbleCount = null
-_inactiveBubbleCount = null
-_waitTime = null
-_minSpeed = null
-_maxSpeed = null
 _roundCount = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

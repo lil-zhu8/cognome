@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://ui-theme.tres" type="Theme" id=1]
-[ext_resource path="res://fonts/nunito-font-large.tres" type="DynamicFont" id=2]
-[ext_resource path="res://scripts/GlowingControl.gd" type="Script" id=3]
-[ext_resource path="res://scripts/IntroScene.gd" type="Script" id=4]
-[ext_resource path="res://sprites/background.jpg" type="Texture" id=5]
+[ext_resource path="res://scripts/IntroScene.gd" type="Script" id=1]
+[ext_resource path="res://sprites/background.jpg" type="Texture" id=2]
+[ext_resource path="res://ui-theme.tres" type="Theme" id=3]
+[ext_resource path="res://fonts/nunito-font-large.tres" type="DynamicFont" id=4]
+[ext_resource path="res://scripts/GlowingControl.gd" type="Script" id=5]
 
 [node name="IntroScene" type="Node2D"]
-script = ExtResource( 4 )
+script = ExtResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -15,7 +15,7 @@ script = ExtResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-texture = ExtResource( 5 )
+texture = ExtResource( 2 )
 expand = true
 stretch_mode = 7
 
@@ -28,8 +28,8 @@ margin_left = -279.5
 margin_top = -238.297
 margin_right = 279.5
 margin_bottom = -134.297
-theme = ExtResource( 1 )
-custom_fonts/font = ExtResource( 2 )
+theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Puzzles for POD"
 align = 1
@@ -47,10 +47,10 @@ margin_left = -114.5
 margin_top = 103.377
 margin_right = 114.5
 margin_bottom = 148.377
-theme = ExtResource( 1 )
+theme = ExtResource( 3 )
 custom_colors/font_color = Color( 0.5, 0.5, 0.5, 1 )
 text = "Tap to Continue"
-script = ExtResource( 3 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
