@@ -70,7 +70,7 @@ var url_events = "/v2/" + game_key() + "/events"
 var use_gzip = false
 
 # private variables
-var _event_delay = 1
+var _event_delay = 3
 var _event_timer = 0
 
 # global state to track changes when code is running
@@ -175,7 +175,7 @@ func _ready() -> void:
 	var sessionNum:int = SaveData.Get("session_number", 1)
 	SaveData.Set("session_number", sessionNum + 1)
 	set_key('user_id', userId)
-	set_key('game_version', '1.00')
+	set_key('game_version', '1.02')
 	set_key('session_num', sessionNum)
 	request_init()
 	add_to_event_queue(get_user_event())
@@ -375,7 +375,7 @@ func submit_callback():
 		var dir = Directory.new()
 		dir.remove("user://event_queue")
 	elif status_code != 200:
-		state_config['event_queue'] = _eventsBeingSubmitted + state_config['event_queue']
+		#state_config['event_queue'] = _eventsBeingSubmitted + state_config['event_queue']
 		post_to_log(status_code_string)
 		post_to_log("Submit events request did not succeed! Perhaps offline.. ")
 
@@ -387,7 +387,7 @@ func submit_callback():
 		var dir = Directory.new()
 		dir.remove("user://event_queue")
 	else:
-		state_config['event_queue'] = _eventsBeingSubmitted + state_config['event_queue']
+		#state_config['event_queue'] = _eventsBeingSubmitted + state_config['event_queue']
 		post_to_log("Event submission FAILED!")
 
 	if game_end and get_tree():
