@@ -14,6 +14,7 @@ export var _inactiveBubbleCount:int = 12
 export var _waitTime:float = 6.0
 export var _minSpeed:float = 50.0
 export var _maxSpeed:float = 100.0
+export var _tapLabel:NodePath
 export var _roundCount:int = 5
 
 const UUID = preload("res://analytics/uuid.gd")
@@ -78,7 +79,8 @@ func _ready() -> void:
 	AudioPlayer.playSound(_showSound)
 
 	_state = State.ANSWER
-	label.text = "Correct answer:\nTap to continue..."
+	label.text = "Correct answer:"
+	get_node(_tapLabel).visible = true
 	var correctCount:int = 0
 	for bubble in _clickedBubbles:
 		if _bubbles.find(bubble) >= _activeBubbleCount:
