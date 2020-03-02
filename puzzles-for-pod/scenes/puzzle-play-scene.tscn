@@ -2,9 +2,9 @@
 
 [ext_resource path="res://scripts/PuzzlePlayScene.gd" type="Script" id=1]
 [ext_resource path="res://sprites/background.jpg" type="Texture" id=2]
-[ext_resource path="res://ui-theme.tres" type="Theme" id=3]
-[ext_resource path="res://scripts/GlowingButton.gd" type="Script" id=4]
-[ext_resource path="res://sprites/puzzle-images/1.jpg" type="Texture" id=5]
+[ext_resource path="res://sprites/puzzle-images/1.jpg" type="Texture" id=3]
+[ext_resource path="res://ui-theme.tres" type="Theme" id=4]
+[ext_resource path="res://scripts/GlowingButton.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
@@ -40,6 +40,15 @@ _minigameButtonPath = NodePath("CanvasLayer/MarginContainer/Content/UnusedPieces
 _helpPopupPath = NodePath("CanvasLayer/HelpPopup")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -83,7 +92,7 @@ anchor_bottom = 0.5
 margin_left = -237.0
 margin_top = 241.0
 margin_bottom = 341.0
-theme = ExtResource( 3 )
+theme = ExtResource( 4 )
 text = "Help?"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -98,7 +107,7 @@ margin_left = 13.0
 margin_top = 241.0
 margin_right = 238.0
 margin_bottom = 341.0
-theme = ExtResource( 3 )
+theme = ExtResource( 4 )
 text = "More Puzzles"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -114,7 +123,7 @@ margin_top = -359.0
 margin_right = -262.0
 margin_bottom = 341.0
 mouse_filter = 2
-theme = ExtResource( 3 )
+theme = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -151,11 +160,11 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -100.0
-theme = ExtResource( 3 )
+theme = ExtResource( 4 )
 custom_styles/hover = SubResource( 1 )
 custom_styles/normal = SubResource( 2 )
 text = "More Pieces"
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -165,7 +174,7 @@ margin_left = 250.0
 margin_right = 975.0
 margin_bottom = 575.0
 mouse_filter = 2
-theme = ExtResource( 3 )
+theme = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -203,7 +212,7 @@ margin_left = 750.0
 margin_top = 590.0
 margin_right = 975.0
 margin_bottom = 710.0
-texture = ExtResource( 5 )
+texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
 __meta__ = {
@@ -228,7 +237,7 @@ margin_left = -400.0
 margin_top = -200.0
 margin_right = 400.0
 margin_bottom = 200.0
-theme = ExtResource( 3 )
+theme = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

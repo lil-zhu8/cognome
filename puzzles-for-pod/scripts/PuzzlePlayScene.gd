@@ -87,6 +87,24 @@ func Load() -> void:
 		if data.pieces.has(str(i)):
 			piece.Load(data.pieces[str(i)])
 
+	# Always ensure first 5 pieces are available.
+	var availablePieces = []
+	var unavailablePieces = []
+	for i in range(_puzzle.Pieces.size()):
+		var piece:PuzzlePiece = _puzzle.Pieces[i]
+		if piece.IsAvailable():
+			availablePieces.append(piece)
+		else:
+			unavailablePieces.append(piece)
+
+	while availablePieces.size() < 5:
+		var index:int = randi() % unavailablePieces.size()
+		var piece:PuzzlePiece = unavailablePieces[index]
+		piece.MakeAvailable()
+		piece.JustAvailable = true
+		unavailablePieces.remove(index)
+		availablePieces.append(piece)
+
 func HandleDrag(position:Vector2) -> void:
 	if _activePiece != null:
 		_activePiece.set_global_position(position + _dragOffset)
@@ -105,7 +123,7 @@ func OnMinigameButtonPressed() -> void:
 	SaveData.Set("minigame_round", 0)
 	SaveData.Set("minigame_score", 0)
 	SaveData.Set("minigame_max_score", 0)
-	
+
 	var seenInstructions:bool = SaveData.Get("seen_minigame_instructions", false)
 	SaveData.Set("seen_minigame_instructions", true)
 	if !seenInstructions:
@@ -130,6 +148,12 @@ func HasUnavailablePiece() -> bool:
 func _process(_delta:float) -> void:
 	var button:GlowingButton = get_node(_minigameButtonPath)
 	button.Enabled = !HasAvailablePiece()
+	var availablePieceCount:int = 0
+	for p in _puzzle.Pieces:
+		var piece:PuzzlePiece = p
+		if piece.IsAvailable():
+			availablePieceCount += 1
+	button.Enabled = button.Enabled || availablePieceCount <= 5
 	button.disabled = !HasUnavailablePiece()
 
 	if _transitioning:

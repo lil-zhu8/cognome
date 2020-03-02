@@ -156,9 +156,9 @@ size_flags_vertical = 4
 
 [node name="ResumeButton" type="Button" parent="CanvasLayer/MarginContainer/Content/BottomSection/HBoxContainer"]
 margin_left = 688.0
-margin_top = 21.0
+margin_top = 31.0
 margin_right = 924.0
-margin_bottom = 121.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 0, 80 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
