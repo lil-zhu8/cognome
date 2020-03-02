@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui-theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/MinigameResultsScene.gd" type="Script" id=2]
 [ext_resource path="res://fonts/nunito-font-small.tres" type="DynamicFont" id=3]
 [ext_resource path="res://sprites/background.jpg" type="Texture" id=4]
+[ext_resource path="res://scripts/GlowingButton.gd" type="Script" id=5]
 
 [node name="MinigameResultsScene" type="Node2D"]
 script = ExtResource( 2 )
@@ -164,6 +165,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 1 )
 text = "Resume"
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/PuzzleSelectScene.gd" type="Script" id=1]
 [ext_resource path="res://sprites/background.jpg" type="Texture" id=2]
 [ext_resource path="res://ui-theme.tres" type="Theme" id=3]
 [ext_resource path="res://sprites/gradient.png" type="Texture" id=4]
+[ext_resource path="res://ui-theme-popup.tres" type="Theme" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_top = 2.0
@@ -192,6 +193,7 @@ margin_left = -387.5
 margin_top = -139.0
 margin_right = 387.5
 margin_bottom = 139.0
+theme = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="CanvasLayer/CompletedPopup/Panel"]
 anchor_top = 0.5
