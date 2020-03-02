@@ -55,7 +55,7 @@ margin_right = -100.0
 margin_bottom = 118.0
 theme = ExtResource( 1 )
 text = "1. Choose a puzzle to complete from the ones provided.
-2. Drag the puzzle pieces avaiable from the unused box to the correct locations on the puzzle.
+2. Drag the puzzle pieces available from the unused box to the correct locations on the puzzle.
 3. When you run out of pieces, play a fun, quick minigame to get more."
 autowrap = true
 __meta__ = {
