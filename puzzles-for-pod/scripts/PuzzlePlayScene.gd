@@ -97,7 +97,7 @@ func Load() -> void:
 		else:
 			unavailablePieces.append(piece)
 
-	while availablePieces.size() < 5:
+	while availablePieces.size() < 10:
 		var index:int = randi() % unavailablePieces.size()
 		var piece:PuzzlePiece = unavailablePieces[index]
 		piece.MakeAvailable()
