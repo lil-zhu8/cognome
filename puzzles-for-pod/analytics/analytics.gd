@@ -175,7 +175,7 @@ func _ready() -> void:
 	var sessionNum:int = SaveData.Get("session_number", 1)
 	SaveData.Set("session_number", sessionNum + 1)
 	set_key('user_id', userId)
-	set_key('game_version', '1.03')
+	set_key('game_version', '1.04')
 	set_key('session_num', sessionNum)
 	request_init()
 	add_to_event_queue(get_user_event())
